@@ -1,0 +1,9 @@
+The Wycheproof Project is an extremely useful set of tests which define corner cases and known weaknesses in cryptographic algorithms.
+
+Nettle is a cryptographic library developed by the Linkoping University, and comes pre-packaged in the Pike scripting language.
+
+This project is an attempt to utilise the Pike scripting language to conduct the tests provided by the Wycheproof project against the Nettle library.
+
+The test cases provided in testvectors/ are taken from https://github.com/google/wycheproof, under the apache-2.0 license.
+
+Created by Joshua Rogers for Opera Software.
