@@ -22,7 +22,7 @@ mapping aead_quick_decrypt(mixed state, mapping test) {
 
 	state->update(test["aad"]);
 	string(8bit) msg = state->crypt(test["ct"]);
-	string(8bit) digest = state->digest();
+	string(8bit) digest = test["tagSize"] != "null" ? state->digest(test["tagSize"]/8) : state->digest();
 
 	ret["msg"] = msg;
 	ret["digest"] = digest;
@@ -44,7 +44,7 @@ mapping aead_quick_encrypt(mixed state, mapping test) {
 	state->update(test["aad"]);
 
 	string(8bit) ct = state->crypt(test["msg"]);
-	string(8bit) digest = state->digest();
+	string(8bit) digest = test["tagSize"] != "null" ? state->digest(test["tagSize"]/8) : state->digest();
 
 	ret["ct"] = ct;
 	ret["digest"] = digest;
@@ -60,7 +60,7 @@ mapping aead_quick_encrypt(mixed state, mapping test) {
  * decryption/encryption or not.
  * The function returns whether the test passed (true) or not.
  */
-bool aead_test_roundtrip(mapping test, string algorithm, int ivSize) {
+bool aead_test_roundtrip(mapping test, string algorithm) {
 	mixed state1 = lookup_init(algorithm)();
 	mixed state2 = lookup_init(algorithm)();
 
@@ -77,8 +77,14 @@ bool aead_test_roundtrip(mapping test, string algorithm, int ivSize) {
 			return false;
 		}
 
-		if(String.count(err[0],"Invalid iv/nonce") > 0 && String.count(test["comment"], "invalid nonce") > 0) {
+		if(String.count(lower_case(err[0]), "invalid iv/nonce") > 0 && String.count(lower_case(test["comment"]), "invalid nonce") > 0) {
+			DBG("INVALID NONCE");
 			//"Expected" invalid response.
+			return true;
+		}
+
+		if(String.count(lower_case(err[0]), "short nonce") > 0 && String.count(lower_case(test["comment"]), "invalid nonce size") > 0) {
+			DBG("SHORT NONCE");
 			return true;
 		}
 
@@ -94,7 +100,8 @@ bool aead_test_roundtrip(mapping test, string algorithm, int ivSize) {
 			return false;
 		}
 
-		if(String.count(err[0],"Invalid iv/nonce") > 0 && String.count(test["comment"], "invalid nonce") > 0) {
+		if(String.count(lower_case(err[0]), "invalid iv/nonce") > 0 && String.count(lower_case(test["comment"]), "invalid nonce") > 0) {
+			DBG("INVALID NONCE");
 			//"Expected" invalid response.
 			return true;
 		}
@@ -119,10 +126,12 @@ bool aead_test_roundtrip(mapping test, string algorithm, int ivSize) {
 	}
 
 	if(ret_dec["digest"] != test["tag"]) {
-		if(test["result"] == "invalid" && String.count(test["comment"], String.string2hex(ret_dec["digest"])) > 0) {
+		if(test["result"] == "invalid" && (String.count(lower_case(test["comment"]), lower_case(String.string2hex(ret_dec["digest"]))) > 0 || String.count(lower_case(test["comment"]), "tag") > 0)) {
+			DBG("INVALID TAG");
 			return true;
 		}
 		if(test["result"] == "invalid") { //XXX: Is this correct with acceptable?
+			DBG("???????");
 			return true;
 		}
 
@@ -133,13 +142,14 @@ bool aead_test_roundtrip(mapping test, string algorithm, int ivSize) {
 	if(test["result"] == "invalid") {
 		if(test["flags"] && test["flags"][0] == "ZeroLengthIv") {
 			if(state1->iv_size() != 0) {
+				DBG("INVALID IV");
 				return true;
 			}
 		}
 		log_err(DBG_ERROR, false, "Test tcId %d has passed all of our checks when it probably shouldn't. ivSize: %d", test["tcId"], state2->iv_size());
 		return false;
 	}
-
+	DBG("GENERAL PASS");
 	return true;
 }
 
@@ -149,17 +159,20 @@ bool aead_test_roundtrip(mapping test, string algorithm, int ivSize) {
  * This function deals with AEAD-type tests, and returns the number of failed tests.
  */
 int aead_tests(mapping testGroup, string algorithm) {
-	int ivSize = testGroup["ivSize"];
 	string type = testGroup["type"];
 	int numTests = sizeof(testGroup["tests"]);
 
 	int fail_count = 0;
 	for(int j=0; j<numTests; j++) {
 		mapping test = testGroup["tests"][j];
-
 		convert_test_to_string(test);
 
-		if(!aead_test_roundtrip(test, algorithm, ivSize)) {
+		test["ivSize"] = testGroup["ivSize"];
+		test["tagSize"] = testGroup["tagSize"];
+
+		handle_special_actions(test, algorithm);
+
+		if(!aead_test_roundtrip(test, algorithm)) {
 			fail_count++;
 		}
 	}

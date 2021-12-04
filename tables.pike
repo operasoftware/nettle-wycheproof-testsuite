@@ -3,16 +3,21 @@
  * These functions are called in a loop and are called as
  * state = algo_functions[0]();
  */
-constant algo_functions = ([
+mapping(string:function) algo_functions = ([
 	/* AEAD Tests */
 	"AES-GCM": Crypto.AES.GCM.State, /*GCM*/
 	"AES-EAX": Crypto.AES.EAX.State, /*EAX*/
-//currently broken	"AES-CCM": Crypto.AES.CCM.State, /*CCM*/
+	"AES-CCM": Crypto.AES.CCM.State, /*CCM*/
 	"CHACHA20-POLY1305": Crypto.ChaCha20.POLY1305.State, /*ChaCha-Poly1305*/
 	//"AEAD-AES-SIV-CMAC" : ???
 
 	/* IndCpa Tests */
 	"AES-CBC-PKCS5": Crypto.AES.CBC.Buffer, /*AES-CBC-PKCS5*/
+]);
+
+mapping(string:function) special_action_table = ([
+   /* GCM only allows a tag size of 16, therefore set the DigestSize to "null" */
+   "AES-GCM": unset_digest_size,
 ]);
 
 /*

@@ -53,7 +53,7 @@ mapping indcpa_quick_encrypt(mixed state, mapping test) {
  * decryption/encryption or not.
  * The function returns whether the test passed (true) or not.
  */
-bool indcpa_test_roundtrip(mapping test, string algorithm, int ivSize) {
+bool indcpa_test_roundtrip(mapping test, string algorithm) {
     mixed state1 = lookup_init(algorithm)();
     mixed state2 = lookup_init(algorithm)();
 
@@ -73,7 +73,8 @@ bool indcpa_test_roundtrip(mapping test, string algorithm, int ivSize) {
 
     if(err) {
         if(test["result"] == "invalid") {
-            if(test["flags"] && test["flags"][0] == "BadPadding" && String.count(err[0], "padding") > 0) {
+            if(test["flags"] && test["flags"][0] == "BadPadding" && String.count(lower_case(err[0]), "padding") > 0) {
+					DBG("BAD PADDING");
                 return true;
             }
         }
@@ -105,6 +106,8 @@ bool indcpa_test_roundtrip(mapping test, string algorithm, int ivSize) {
         return false;
     }
 
+	DBG("GENERAL PASS");
+
     return true;
 }
 
@@ -114,8 +117,7 @@ bool indcpa_test_roundtrip(mapping test, string algorithm, int ivSize) {
  * This function deals with indcpa-type tests, and returns the number of failed tests.
  */
 int indcpa_tests(mapping testGroup, string algorithm) {
-    int ivSize = testGroup["ivSize"];
-    string type = testGroup["type"];
+//    string type = testGroup["type"];
     int numTests = sizeof(testGroup["tests"]);
 
     int fail_count = 0;
@@ -123,8 +125,12 @@ int indcpa_tests(mapping testGroup, string algorithm) {
         mapping test = testGroup["tests"][j];
 
         convert_test_to_string(test);
+			test["ivSize"] = testGroup["ivSize"];
+			test["tagSize"] = testGroup["tagSize"];
 
-        if(!indcpa_test_roundtrip(test, algorithm, ivSize)) {
+			handle_special_actions(test, algorithm);
+
+        if(!indcpa_test_roundtrip(test, algorithm)) {
             fail_count++;
         }
     }

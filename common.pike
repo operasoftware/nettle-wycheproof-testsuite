@@ -7,8 +7,21 @@ function lookup_function(string schema) {
    return test_function_list[schema];
 }
 
+void unset_digest_size(mapping test) {
+   test["tagSize"] = "null";
+}
+
+void handle_special_actions(mapping test, string algorithm) {
+	foreach (special_action_table; string index; function value) {
+		if(index == algorithm) {
+			value(test);
+		}
+	}
+}
+
+
 #define ERR_CONT(TYPE,CARR,FMT,ARGS ...) log_err(TYPE,CARR,FMT,ARGS); continue;
-#define DBG(FMT,ARGS ...) if(dbg_mode) log_err(DBG_DBG, false, FMT, ARGS);
+#define DBG(FMT,ARGS ...) if(dbg_mode) log_err(DBG_DBG, false, "[L:"+__LINE__+"]"+FMT, ARGS);
 
 #define begin_ever(TCID, COMMENT) if(dbg_mode) log_err(DBG_INFO, true, "Testing tcId [%d] (%s).", TCID, COMMENT); else log_err(DBG_INFO, true, "Testing tcId [%d].", TCID);
 
