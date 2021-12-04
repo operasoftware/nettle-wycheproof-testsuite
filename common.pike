@@ -4,11 +4,11 @@ function lookup_init(string algorithm) {
 }
 
 function lookup_function(string schema) {
-   return test_function_list[schema];
+	return test_function_list[schema];
 }
 
 void unset_digest_size(mapping test) {
-   test["tagSize"] = "null";
+	test["tagSize"] = "null";
 }
 
 void handle_special_actions(mapping test, string algorithm) {
@@ -65,9 +65,9 @@ void convert_test_to_string(mapping test) {
 }
 
 /*
-  * Returns whether the test should pass or not.
-  * TODO: read the error and deal with "Acceptable cases"?.
-  */
+ * Returns whether the test should pass or not.
+ * TODO: read the error and deal with "Acceptable cases"?.
+ */
 bool check_pass(array err, string result) {
 	switch(result) {
 		case "valid":

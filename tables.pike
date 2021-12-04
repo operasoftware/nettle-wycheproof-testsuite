@@ -16,8 +16,8 @@ mapping(string:function) algo_functions = ([
 ]);
 
 mapping(string:function) special_action_table = ([
-   /* GCM only allows a tag size of 16, therefore set the DigestSize to "null" */
-   "AES-GCM": unset_digest_size,
+	/* GCM only allows a tag size of 16, therefore set the DigestSize to "null" */
+	"AES-GCM": unset_digest_size,
 ]);
 
 /*
@@ -55,9 +55,9 @@ mapping(int:string) colors = ([
 ]);
 
 mapping(string:function) test_function_list = ([
-   /* AEAD Testing */
-   "aead_test_schema.json": aead_tests,
+	/* AEAD Testing */
+	"aead_test_schema.json": aead_tests,
 
-   /* IndCpa Testing */
-   "ind_cpa_test_schema.json": indcpa_tests,
+	/* IndCpa Testing */
+	"ind_cpa_test_schema.json": indcpa_tests,
 ]);

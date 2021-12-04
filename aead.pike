@@ -159,7 +159,6 @@ bool aead_test_roundtrip(mapping test, string algorithm) {
  * This function deals with AEAD-type tests, and returns the number of failed tests.
  */
 int aead_tests(mapping testGroup, string algorithm) {
-	string type = testGroup["type"];
 	int numTests = sizeof(testGroup["tests"]);
 
 	int fail_count = 0;
