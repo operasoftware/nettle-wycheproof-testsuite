@@ -18,6 +18,7 @@
 #include "common.pike"
 #include "aead.pike"
 #include "indcpa.pike"
+#include "dsa.pike"
 
 /*
  * Prepares an array of mappings from JSON files
@@ -48,7 +49,8 @@ array prepare_json_cases() {
 			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to the lack of support in Nettle of the algorithm %s.", test_vectors[i], (string)json_vector["algorithm"]);
 		}
 
-		maps[cases++] = json_vector;
+		maps[cases] = json_vector;
+		maps[cases++]["file"] = (["name": test_vectors[i]]);
 		totaltests += (int)json_vector["numberOfTests"];
 		ERR_CONT(DBG_INFO,false,"Loaded JSON from %s.", test_vectors[i]);
 	}
@@ -74,7 +76,7 @@ int main(int argc, array(string) argv) {
 		string algorithm = maps[i]["algorithm"];
 		int fail_count = 0;
 
-		log_err(DBG_INFO, false, "Beginning tests for %s.", algorithm);
+		log_err(DBG_INFO, false, "Beginning tests for %s(%s).", algorithm, maps[i]["file"]["name"]);
 
 		for(int j=0; j<sizeof(maps[i]["testGroups"]); j++) {
 			mixed testGroup = maps[i]["testGroups"][j];

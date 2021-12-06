@@ -56,7 +56,7 @@ void log_err(int type, bool carriage, string fmt, mixed ... args) {
  * Converts various hex-encoded text into their rexpective 8-bit strings.
  */
 void convert_test_to_string(mapping test) {
-	array convertable = ({"key", "iv", "aad", "msg", "ct", "tag"});
+	array convertable = ({"key", "iv", "aad", "msg", "ct", "sig", "tag"});
 
 	for(int i=0; i<sizeof(convertable); i++) {
 		if(test[convertable[i]])

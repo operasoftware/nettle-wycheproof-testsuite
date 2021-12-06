@@ -13,6 +13,9 @@ mapping(string:function) algo_functions = ([
 
 	/* IndCpa Tests */
 	"AES-CBC-PKCS5": Crypto.AES.CBC.Buffer, /*AES-CBC-PKCS5*/
+
+	/* DSA Tests */
+	"DSA": Crypto.DSA.State,
 ]);
 
 mapping(string:function) special_action_table = ([
@@ -38,7 +41,14 @@ constant test_vectors = ({
 	"xchacha20_poly1305_test.json",
 
 	/* IndCpa Tests */
-	"aes_cbc_pkcs5_test.json"
+	"aes_cbc_pkcs5_test.json",
+
+	/* DSA Tests */
+	"dsa_2048_224_sha224_test.json",
+	"dsa_2048_224_sha256_test.json",
+	"dsa_2048_256_sha256_test.json",
+	"dsa_3072_256_sha256_test.json",
+	"dsa_test.json",
 });
 
 
@@ -60,4 +70,7 @@ mapping(string:function) test_function_list = ([
 
 	/* IndCpa Testing */
 	"ind_cpa_test_schema.json": indcpa_tests,
+
+	/* DSA Tests */
+	"dsa_verify_schema.json": dsa_tests,
 ]);
