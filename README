@@ -6,4 +6,6 @@ This project is an attempt to utilise the Pike scripting language to conduct the
 
 The test cases provided in testvectors/ are taken from https://github.com/google/wycheproof, under the apache-2.0 license.
 
+To use this program, simply run `pike main.pike`. An optional `D` arg flag can be used for more detailed debugging information.
+
 Created by Joshua Rogers for Opera Software.

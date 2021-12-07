@@ -86,7 +86,7 @@ bool dsa_check_key(mapping test, string algorithm) {
 	mixed state1 = lookup_init(algorithm)();
 	mixed key = test["key"];
 
-   state1->set_public_key(Gmp.mpz(key["p"], 16), Gmp.mpz(key["q"], 16), Gmp.mpz(key["g"], 16), Gmp.mpz(key["y"], 16));
+	state1->set_public_key(Gmp.mpz(key["p"], 16), Gmp.mpz(key["q"], 16), Gmp.mpz(key["g"], 16), Gmp.mpz(key["y"], 16));
 
 	if(Gmp.mpz(key["p"], 16) != state1->get_p()) {
 		log_err(DBG_ERROR, false, "Incorrect get_p() result");
