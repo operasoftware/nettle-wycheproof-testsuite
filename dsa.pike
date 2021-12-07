@@ -37,7 +37,7 @@ bool dsa_test(mapping test, string algorithm) {
 
 	if(err) {
 		if(test["result"] == "valid") {
-			log_err(DBG_ERROR, false, "Unexpected error on a valid testcase tcId %d.", test["tcId"]);
+			log_err(DBG_ERROR, false, "Unexpected error on a valid testcase tcId %d: %O.", test["tcId"], err);
 				return false;
 		}
 
@@ -73,7 +73,7 @@ bool dsa_test(mapping test, string algorithm) {
 		}
 	} else {
 		if(!ret && test["result"] != "acceptable") {
-			log_err(DBG_ERROR, false, "Unexpected failure on a seemingly valid testcase tcId %d: %O.", test["tcId"], ret);
+			log_err(DBG_ERROR, false, "Unexpected failure on a seemingly valid testcase tcId %d.", test["tcId"]);
 			return false;
 		}
 	}

@@ -19,6 +19,7 @@
 #include "aead.pike"
 #include "indcpa.pike"
 #include "dsa.pike"
+#include "ecdsa.pike"
 
 /*
  * Prepares an array of mappings from JSON files
@@ -85,6 +86,6 @@ int main(int argc, array(string) argv) {
 			fail_count += function_to_use(testGroup, algorithm);
 		}
 
-		log_err((fail_count == 0) ? DBG_SUCCESS : DBG_ERROR, false, "Finished testing %s. %d failed tests.", algorithm, fail_count);
+		log_err((fail_count == 0) ? DBG_SUCCESS : DBG_ERROR, false, "Finished testing %s. %d/%d failed tests.", algorithm, fail_count, maps[i]["numberOfTests"]);
 	}
 }
