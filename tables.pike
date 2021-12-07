@@ -1,6 +1,10 @@
 /*
+ * tables.pike: Mappings/arrays of different functionality.
+ */
+
+/*
  * A list of the different functions for each algorithm.
- * These functions are called in a loop and are called as
+ * These functions are called in a loop and are usually called as
  * state = algo_functions[0]();
  */
 mapping(string:function) algo_functions = ([
@@ -24,11 +28,6 @@ mapping(string:function) algo_functions = ([
 	/* EDDSA Tests */
 	"EDDSA": Crypto.ECC, // This is not necessary but left for future reference.
 #endif
-]);
-
-mapping(string:function) special_action_table = ([
-	/* GCM only allows a tag size of 16, therefore set the DigestSize to "null" */
-	"AES-GCM": unset_digest_size,
 ]);
 
 /*
@@ -115,19 +114,9 @@ constant test_vectors = ({
 #endif
 });
 
-
-#define DBG_INFO 0
-#define DBG_SUCCESS 1
-#define DBG_ERROR 2
-#define DBG_DBG 3
-
-mapping(int:string) colors = ([
-	DBG_INFO: "\x1B[34m", //Blue
-	DBG_SUCCESS: "\x1B[32m", //Green
-	DBG_ERROR: "\x1B[31m", //Red
-	DBG_DBG: "\x1B[33m", //Yellow
-]);
-
+/*
+ * A list of the types of tests corresponding to their testing function
+ */
 mapping(string:function) test_function_list = ([
 	/* AEAD Testing */
 	"aead_test_schema.json": aead_tests,
@@ -151,4 +140,25 @@ mapping(string:function) test_function_list = ([
 	/* EDDSA Tests */
 	"eddsa_verify_schema.json": eddsa_tests,
 #endif
+]);
+
+/*
+ * A list of "special" functions which should be performed for specific
+ * algorithms before running their testcases.
+ */
+mapping(string:function) special_action_table = ([
+	/* GCM only allows a tag size of 16, therefore set the DigestSize to "null" */
+	"AES-GCM": unset_digest_size,
+]);
+
+#define DBG_INFO 0
+#define DBG_SUCCESS 1
+#define DBG_ERROR 2
+#define DBG_DBG 3
+
+mapping(int:string) colors = ([
+	DBG_INFO: "\x1B[34m", //Blue
+	DBG_SUCCESS: "\x1B[32m", //Green
+	DBG_ERROR: "\x1B[31m", //Red
+	DBG_DBG: "\x1B[33m", //Yellow
 ]);

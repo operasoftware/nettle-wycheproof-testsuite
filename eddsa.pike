@@ -1,16 +1,15 @@
 /*
- *
  * eddsa.pike: Functions concerning the EddsaVerify tests.
  *
  * The Curve25519 and Curve448 algorithms are currently only available
  * in Pike 8.1.
- *
- * TODO: finish this.
- *
- * Copyright Opera Software, written by Joshua Rogers.
- *
  */
 
+/* The main test for EddsaVerify tests.
+ * This function simply sets the public key, then verifies the message
+ * and signature.
+ * The function returns whether the test was successful(true) or not.
+ */
 bool eddsa_test(mapping test, string algorithm) {
 	mixed curve = lookup_init(algorithm);
 	mixed key = test["key"];

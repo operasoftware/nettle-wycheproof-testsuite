@@ -1,13 +1,15 @@
 /*
- *
  * dsa.pike: Functions concerning the DsaVerify tests.
  *
- * The DSA algorithm is currently supported.
- *
- * Copyright Opera Software, written by Joshua Rogers.
- *
+ * All SHA algorithms are supported.
  */
 
+/*
+ * The main test for DsaVerify tests.
+ * This function simply sets the public key, then verifies the message
+ * and signature.
+ * The function returns whether the test was successful(true) or not.
+ */
 bool dsa_test(mapping test, string algorithm) {
 	mixed state1 = lookup_init(algorithm)();
 	mixed key = test["key"];
@@ -40,27 +42,6 @@ bool dsa_test(mapping test, string algorithm) {
 			log_err(DBG_ERROR, false, "Unexpected error on a valid testcase tcId %d: %O.", test["tcId"], err);
 				return false;
 		}
-
-/*		if(String.count(lower_case(err[0]), "indefinite") && String.count(lower_case(test["comment"]), "indefinite")) {
-			DBG("INDEFINITIVE LENGTH");
-			return true;
-		}
-
-		if(String.count(lower_case(err[0]), "sizeof") && String.count(lower_case(test["comment"]), "length")) {
-			DBG("INDEFINITIVE LENGTH");
-			return true;
-		}
-
-		if(String.count(lower_case(err[0]), "end-of-content") && String.count(lower_case(test["comment"]), "pending")) {
-			DBG("END-OF-CONTENT");
-			return true;
-		}
-
-		if(String.count(lower_case(err[0]), "size") && String.count(lower_case(test["comment"]), "length")) {
-			DBG("ILLEGAL SIZE");
-			return true;
-		}
-*/
 		DBG("GENERAL PASS");
 		return true;
 	}
@@ -82,6 +63,11 @@ bool dsa_test(mapping test, string algorithm) {
 	return true;
 }
 
+/*
+ * An alternative test to ensure that the p,g,q,y values are correctly
+ * handled when setting the public key.
+ * The function returns whether the test was successful(true) or not.
+ */
 bool dsa_check_key(mapping test, string algorithm) {
 	mixed state1 = lookup_init(algorithm)();
 	mixed key = test["key"];
@@ -111,6 +97,7 @@ bool dsa_check_key(mapping test, string algorithm) {
 	DBG("GENERAL PASS");
 	return true;
 }
+
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.

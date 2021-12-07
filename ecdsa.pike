@@ -1,15 +1,18 @@
 /*
- *
  * ecdsa.pike: Functions concerning the EcdsaVerify tests.
  *
  * The SECP521R1, SECP384R1, SECP256R1, and SECP224R1 curves are
  * currently supported, however the latter one is not supported in all
  * versions of Pike.
- *
- * Copyright Opera Software, written by Joshua Rogers.
- *
  */
 
+
+/*
+ * The main test for EcdsaVerify tests.
+ * This function simply sets the public key, then verifies the message
+ * and signature.
+ * The function returns whether the test was successful(true) or not.
+ */
 bool ecdsa_test(mapping test, string algorithm) {
 	Crypto.ECC.Curve curve = lookup_init(algorithm);
 	mixed key = test["key"];

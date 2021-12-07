@@ -1,13 +1,8 @@
 /*
- *
  * indcpa.pike: Functions concerning the IndCpaTest tests.
  *
  * The AES-CBC-PKCS5 algorithm is currently supported.
- *
- * Copyright Opera Software, written by Joshua Rogers.
- *
  */
-
 
 /*
  * This function decrypts an indcpa-encrypted string, using a provided

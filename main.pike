@@ -1,4 +1,5 @@
 /*
+ * main.pike: The main program file.
  *
  * Nettle is a cryptographic library created by the Linkoping University,
  * and comes pre-packaged in the Pike scripting language.
@@ -12,7 +13,6 @@
  * based on the tests.
  *
  * Created by Joshua Rogers for Opera Software.
- *
  */
 
 #include "common.pike"
@@ -62,17 +62,18 @@ array prepare_json_cases() {
 	return maps;
 }
 
-
+/*
+ * Driver/Main script.
+ */
 int main(int argc, array(string) argv) {
+	if(argc > 1 && argv[1] == "D")
+		dbg_mode = true;
 	array maps = prepare_json_cases();
 
 	if(maps[0] == 0) {
 		log_err(DBG_ERROR, false, "No test vectors to check. Exiting.");
 		return 1;
 	}
-
-	if(argc > 1 && argv[1] == "D")
-		dbg_mode = true;
 
 	for(int i=0; i<sizeof(maps) && maps[i]; i++) {
 		string algorithm = maps[i]["algorithm"];

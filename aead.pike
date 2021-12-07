@@ -1,13 +1,16 @@
 /*
- *
  * aead.pike: Functions concerning the AeadTest tests.
  *
  * The AES-GCM, AES-EAX, AES-CCM, CHACHA20-POLY1305 algorithms
  * are currently supported. AEAD-AES-SIV-CMAC is currently missing.
- *
- * Copyright Opera Software, written by Joshua Rogers.
- *
  */
+
+/*
+ * Used to unset the tagSize for AES-GCM tests.
+ */
+void unset_digest_size(mapping test) {
+	test["tagSize"] = "null";
+}
 
 /*
  * This function decrypts an aead-encrypted string, using a provided
