@@ -44,6 +44,10 @@ bool eddsa_test(mapping test, string algorithm) {
  * This function deals with EDDSA-type tests, and returns the number of failed tests.
  */
 int eddsa_tests(mapping testGroup, string algorithm) {
+#if !constant(Crypto.ECC.Curve25519) || !constant(Crypto.ECC.Curve448)
+	log_err(DBG_INFO, false, "Skipping EDDSA tests because Pike does not support it.");
+	return 0;
+#endif
 	int numTests = sizeof(testGroup["tests"]);
 
 	mapping key = testGroup["key"]; //unencoded EC Pubkey

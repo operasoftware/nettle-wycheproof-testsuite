@@ -14,24 +14,24 @@
  * The function returns whether the test was successful(true) or not.
  */
 bool ecdsa_test(mapping test, string algorithm) {
-	Crypto.ECC.Curve curve = lookup_init(algorithm);
+	mixed curve = lookup_init(algorithm);
 	mixed key = test["key"];
 
 	begin_ever(test["tcId"], test["comment"]);
 
 	switch(test["curve"]) {
 		case "secp521r1":
-			curve = Crypto.ECC.SECP_521R1;
+			curve = curve.SECP_521R1;
 			break;
 		case "secp384r1":
-			curve = Crypto.ECC.SECP_384R1;
+			curve = curve.SECP_384R1;
 			break;
 		case "secp256r1":
-			curve = Crypto.ECC.SECP_256R1;
+			curve = curve.SECP_256R1;
 			break;
 		case "secp224r1": 
 #if constant(Crypto.ECC.SECP_224R1)
-			curve = Crypto.ECC.SECP_224R1;
+			curve = curve.SECP_224R1;
 			break;
 #endif
 		case "secp256k1":
@@ -56,33 +56,7 @@ bool ecdsa_test(mapping test, string algorithm) {
 	mixed ECDSA = curve->ECDSA();
 	ECDSA->set_public_key(Gmp.mpz(key["wx"], 16), Gmp.mpz(key["wy"], 16));
 
-	mixed sha;
-	switch(test["sha"]) {
-		case "SHA-224":
-			sha = Crypto.SHA224;
-			break;
-		case "SHA-256":
-			sha = Crypto.SHA256;
-			break;
-		case "SHA-384":
-			sha = Crypto.SHA384;
-			break;
-		case "SHA-512":
-			sha = Crypto.SHA512;
-			break;
-		case "SHA3-256":
-			sha = Crypto.SHA3_256;
-			break;
-		case "SHA3-384":
-			sha = Crypto.SHA3_384;
-			break;
-		case "SHA3-512":
-			sha = Crypto.SHA3_512;
-			break;
-		default:
-			log_err(DBG_ERROR, false, "Unknown SHA function in TcID %d: %s.", test["tcId"], test["sha"]);
-			return false;
-	}
+	mixed sha = get_sha_function(test["sha"]);
 
 	bool ret = false;
 

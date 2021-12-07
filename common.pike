@@ -52,6 +52,42 @@ void convert_test_to_string(mapping test) {
 }
 
 /*
+ * Returns the hash function for different SHA algorithms
+ */
+
+mixed get_sha_function(string sha_string) {
+	mixed sha;
+	switch(sha_string) {
+		case "SHA-224":
+			sha = Crypto.SHA224;
+			break;
+		case "SHA-256":
+			sha = Crypto.SHA256;
+			break;
+		case "SHA-384":
+			sha = Crypto.SHA384;
+			break;
+		case "SHA-512":
+			sha = Crypto.SHA512;
+			break;
+		case "SHA3-256":
+			sha = Crypto.SHA3_256;
+			break;
+		case "SHA3-384":
+			sha = Crypto.SHA3_384;
+			break;
+		case "SHA3-512":
+			sha = Crypto.SHA3_512;
+			break;
+		default:
+			log_err(DBG_ERROR, false, "Unknown SHA function (%s)!", sha_string);
+			exit(1);
+	}
+
+	return sha;
+}
+
+/*
  * Main logging function. Either ends the message with a carriage or
  * a newline, depending on whether the script is run in dbg mode, 
  * and/or the 'carriage' variable is true.

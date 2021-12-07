@@ -13,32 +13,30 @@ mapping(string:function) algo_functions = ([
 	"AES-EAX": Crypto.AES.EAX.State, /*EAX*/
 	"AES-CCM": Crypto.AES.CCM.State, /*CCM*/
 	"CHACHA20-POLY1305": Crypto.ChaCha20.POLY1305.State, /*ChaCha-Poly1305*/
-	//"AEAD-AES-SIV-CMAC" : ???
+//	"AEAD-AES-SIV-CMAC" : ??,
 
 	/* IndCpa Tests */
 	"AES-CBC-PKCS5": Crypto.AES.CBC.Buffer, /*AES-CBC-PKCS5*/
 
 	/* DSA Tests */
-	"DSA": Crypto.DSA.State,
+	"DSA": Crypto.DSA.State, /*DSA(SHA-1,SHA-224,SHA-256,SHA-256)*/
 
 	/* ECDSA Tests */
-	"ECDSA": Crypto.ECC.Curve, // This is not necessary but left here for future reference.
+	"ECDSA": Crypto.ECC, /*ECDSA*/
 
-#if constant(Crypto.ECC.Curve25519) && constant(Crypto.ECC.Curve448)
 	/* EDDSA Tests */
-	"EDDSA": Crypto.ECC, // This is not necessary but left for future reference.
-#endif
+	"EDDSA": Crypto.ECC, /*EDDSA*/
 
 	/* MacTest Tests */
-	"HMACSHA1": Crypto.HMAC(Crypto.SHA1),
-	"HMACSHA224": Crypto.HMAC(Crypto.SHA224),
-	"HMACSHA256": Crypto.HMAC(Crypto.SHA256),
-	"HMACSHA384": Crypto.HMAC(Crypto.SHA384),
-	"HMACSHA3-224": Crypto.HMAC(Crypto.SHA3_224),
-	"HMACSHA3-256": Crypto.HMAC(Crypto.SHA3_256),
-	"HMACSHA3-384": Crypto.HMAC(Crypto.SHA3_384),
-	"HMACSHA3-512": Crypto.HMAC(Crypto.SHA3_512),
-	"HMACSHA512": Crypto.HMAC(Crypto.SHA512),
+	"HMACSHA1": Crypto.HMAC(Crypto.SHA1), /*HMAC-SHA-1*/
+	"HMACSHA224": Crypto.HMAC(Crypto.SHA224), /*HMAC-SHA-224*/
+	"HMACSHA256": Crypto.HMAC(Crypto.SHA256), /*HMAC-SHA-256*/
+	"HMACSHA384": Crypto.HMAC(Crypto.SHA384), /*HMAC-SHA-384*/
+	"HMACSHA512": Crypto.HMAC(Crypto.SHA512), /*HMAC-SHA-512*/
+	"HMACSHA3-224": Crypto.HMAC(Crypto.SHA3_224), /*HMAC-SHA-3-224*/
+	"HMACSHA3-256": Crypto.HMAC(Crypto.SHA3_256), /*HMAC-SHA-3-256*/
+	"HMACSHA3-384": Crypto.HMAC(Crypto.SHA3_384), /*HMAC-SHA-3-384*/
+	"HMACSHA3-512": Crypto.HMAC(Crypto.SHA3_512), /*HMAC-SHA-3-512*/
 //	"AES-CMAC": ??,
 ]);
 
@@ -119,11 +117,9 @@ constant test_vectors = ({
 	"ecdsa_secp521r1_sha512_p1363_test.json",
 	"ecdsa_webcrypto_test.json",
 
-#if constant(Crypto.ECC.Curve25519) && constant(Crypto.ECC.Curve448)
 	/* EDDSA Tests */
 	"eddsa_test.json",
 	"ed448_test.json",
-#endif
 
 	/* MacTest Tests */
 	"aes_cmac_test.json",
@@ -161,10 +157,8 @@ mapping(string:function) test_function_list = ([
 	/* ECDSAP1363 Tests */
 	"ecdsa_p1363_verify_schema.json": ecdsa_tests,
 
-#if constant(Crypto.ECC.Curve25519) && constant(Crypto.ECC.Curve448)
 	/* EDDSA Tests */
 	"eddsa_verify_schema.json": eddsa_tests,
-#endif
 
 	/* MacTest Tests */
 	"mac_test_schema.json": mactest_tests,

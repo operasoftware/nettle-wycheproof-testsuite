@@ -1,6 +1,6 @@
 /*
  * mactest.pike: Functions concerning the MacTest tests.
- * The SHA1, SHA224, SHA256, SHA384, SHA3-224, SHA3-256, SHA3-384,    
+ * The SHA1, SHA224, SHA256, SHA384, SHA3-224, SHA3-256, SHA3-384,
  * SHA3-512, and SHA-512 algorithms are all supported. AES-CMAC is not.
  */
 
