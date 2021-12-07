@@ -28,6 +28,18 @@ mapping(string:function) algo_functions = ([
 	/* EDDSA Tests */
 	"EDDSA": Crypto.ECC, // This is not necessary but left for future reference.
 #endif
+
+	/* MacTest Tests */
+	"HMACSHA1": Crypto.HMAC(Crypto.SHA1),
+	"HMACSHA224": Crypto.HMAC(Crypto.SHA224),
+	"HMACSHA256": Crypto.HMAC(Crypto.SHA256),
+	"HMACSHA384": Crypto.HMAC(Crypto.SHA384),
+	"HMACSHA3-224": Crypto.HMAC(Crypto.SHA3_224),
+	"HMACSHA3-256": Crypto.HMAC(Crypto.SHA3_256),
+	"HMACSHA3-384": Crypto.HMAC(Crypto.SHA3_384),
+	"HMACSHA3-512": Crypto.HMAC(Crypto.SHA3_512),
+	"HMACSHA512": Crypto.HMAC(Crypto.SHA512),
+//	"AES-CMAC": ??,
 ]);
 
 /*
@@ -112,6 +124,19 @@ constant test_vectors = ({
 	"eddsa_test.json",
 	"ed448_test.json",
 #endif
+
+	/* MacTest Tests */
+	"aes_cmac_test.json",
+	"hmac_sha1_test.json",
+	"hmac_sha224_test.json",
+	"hmac_sha256_test.json",
+	"hmac_sha384_test.json",
+	"hmac_sha3_224_test.json",
+	"hmac_sha3_256_test.json",
+	"hmac_sha3_384_test.json",
+	"hmac_sha3_512_test.json",
+	"hmac_sha512_test.json",
+
 });
 
 /*
@@ -140,6 +165,9 @@ mapping(string:function) test_function_list = ([
 	/* EDDSA Tests */
 	"eddsa_verify_schema.json": eddsa_tests,
 #endif
+
+	/* MacTest Tests */
+	"mac_test_schema.json": mactest_tests,
 ]);
 
 /*

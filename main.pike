@@ -21,6 +21,7 @@
 #include "dsa.pike"
 #include "ecdsa.pike"
 #include "eddsa.pike"
+#include "mactest.pike"
 
 /*
  * Prepares an array of mappings from JSON files
