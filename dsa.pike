@@ -2,7 +2,7 @@
  *
  * dsa.pike: Functions concerning the DsaVerify tests.
  *
- * The DSA algorithm is currentl supported.
+ * The DSA algorithm is currently supported.
  *
  * Copyright Opera Software, written by Joshua Rogers.
  *
@@ -13,7 +13,6 @@ bool dsa_test(mapping test, string algorithm) {
 	mixed key = test["key"];
 
 	begin_ever(test["tcId"], test["comment"]);
-	if(strlen(test["sig"]) == 0) return true;
 
 	state1->set_public_key(Gmp.mpz(key["p"], 16), Gmp.mpz(key["q"], 16), Gmp.mpz(key["g"], 16), Gmp.mpz(key["y"], 16));
 
