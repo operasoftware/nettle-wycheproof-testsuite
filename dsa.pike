@@ -32,7 +32,7 @@ bool dsa_test(mapping test, string algorithm) {
 			return false;
 	}
 
-	bool ret = false; //0=false, 1=true, 2=catch
+	bool ret = false;
 	array err = catch { ret = state1->pkcs_verify(test["msg"], sha, test["sig"]); };
 
 	if(err) {
