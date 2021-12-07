@@ -20,6 +20,7 @@
 #include "indcpa.pike"
 #include "dsa.pike"
 #include "ecdsa.pike"
+#include "eddsa.pike"
 
 /*
  * Prepares an array of mappings from JSON files

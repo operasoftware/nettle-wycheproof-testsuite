@@ -19,6 +19,11 @@ mapping(string:function) algo_functions = ([
 
 	/* ECDSA Tests */
 	"ECDSA": Crypto.ECC.Curve, // This is not necessary but left here for future reference.
+
+#if constant(Crypto.ECC.Curve25519) && constant(Crypto.ECC.Curve448)
+	/* EDDSA Tests */
+	"EDDSA": Crypto.ECC, // This is not necessary but left for future reference.
+#endif
 ]);
 
 mapping(string:function) special_action_table = ([
@@ -52,6 +57,12 @@ constant test_vectors = ({
 	"dsa_2048_256_sha256_test.json",
 	"dsa_3072_256_sha256_test.json",
 
+	/* DSAP1363 Tests */
+	"dsa_2048_224_sha224_p1363_test.json",
+	"dsa_2048_224_sha256_p1363_test.json",
+	"dsa_2048_256_sha256_p1363_test.json",
+	"dsa_3072_256_sha256_p1363_test.json",
+
 	/* ECDSA Tests */
 	"ecdsa_brainpoolP224r1_sha224_test.json",
 	"ecdsa_brainpoolP256r1_sha256_test.json",
@@ -78,6 +89,30 @@ constant test_vectors = ({
 	"ecdsa_secp384r1_sha512_test.json",
 	"ecdsa_secp521r1_sha3_512_test.json",
 	"ecdsa_secp521r1_sha512_test.json",
+
+	/* ECDSAP1363 Tests */
+	"ecdsa_brainpoolP224r1_sha224_p1363_test.json",
+	"ecdsa_brainpoolP256r1_sha256_p1363_test.json",
+	"ecdsa_brainpoolP320r1_sha384_p1363_test.json",
+	"ecdsa_brainpoolP384r1_sha384_p1363_test.json",
+	"ecdsa_brainpoolP512r1_sha512_p1363_test.json",
+	"ecdsa_secp224r1_sha224_p1363_test.json",
+	"ecdsa_secp224r1_sha256_p1363_test.json",
+	"ecdsa_secp224r1_sha512_p1363_test.json",
+	"ecdsa_secp256k1_sha256_p1363_test.json",
+	"ecdsa_secp256k1_sha512_p1363_test.json",
+	"ecdsa_secp256r1_sha256_p1363_test.json",
+	"ecdsa_secp256r1_sha512_p1363_test.json",
+	"ecdsa_secp384r1_sha384_p1363_test.json",
+	"ecdsa_secp384r1_sha512_p1363_test.json",
+	"ecdsa_secp521r1_sha512_p1363_test.json",
+	"ecdsa_webcrypto_test.json",
+
+#if constant(Crypto.ECC.Curve25519) && constant(Crypto.ECC.Curve448)
+	/* EDDSA Tests */
+	"eddsa_test.json",
+	"ed448_test.json",
+#endif
 });
 
 
@@ -103,6 +138,17 @@ mapping(string:function) test_function_list = ([
 	/* DSA Tests */
 	"dsa_verify_schema.json": dsa_tests,
 
+	/* DSAP1363 Tests */
+	"dsa_p1363_verify_schema.json": dsa_tests,
+
 	/* ECDSA Tests */
 	"ecdsa_verify_schema.json": ecdsa_tests,
+
+	/* ECDSAP1363 Tests */
+	"ecdsa_p1363_verify_schema.json": ecdsa_tests,
+
+#if constant(Crypto.ECC.Curve25519) && constant(Crypto.ECC.Curve448)
+	/* EDDSA Tests */
+	"eddsa_verify_schema.json": eddsa_tests,
+#endif
 ]);

@@ -54,13 +54,6 @@ bool ecdsa_test(mapping test, string algorithm) {
 	ECDSA->set_public_key(Gmp.mpz(key["wx"], 16), Gmp.mpz(key["wy"], 16));
 
 	mixed sha;
-/*
-      "sha" : "SHA-224",
-      "sha" : "SHA-256",
-      "sha" : "SHA-384",
-      "sha" : "SHA-512",
-
-*/
 	switch(test["sha"]) {
 		case "SHA-224":
 			sha = Crypto.SHA224;
