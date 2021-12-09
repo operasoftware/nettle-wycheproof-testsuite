@@ -38,6 +38,9 @@ mapping(string:function) algo_functions = ([
 	"HMACSHA3-384": Crypto.HMAC(Crypto.SHA3_384), /*HMAC-SHA-3-384*/
 	"HMACSHA3-512": Crypto.HMAC(Crypto.SHA3_512), /*HMAC-SHA-3-512*/
 //	"AES-CMAC": ??,
+
+	/* PrimalityTest Tests */
+	"PrimalityTest": Crypto.ECC,
 ]);
 
 /*
@@ -133,6 +136,9 @@ constant test_vectors = ({
 	"hmac_sha3_512_test.json",
 	"hmac_sha512_test.json",
 
+	/* PrimalityTest Tests */
+	"primality_test.json",
+
 });
 
 /*
@@ -162,6 +168,9 @@ mapping(string:function) test_function_list = ([
 
 	/* MacTest Tests */
 	"mac_test_schema.json": mactest_tests,
+
+	/* PrimalityTest Tests */
+	"primality_test_schema.json": prime_tests,
 ]);
 
 /*
