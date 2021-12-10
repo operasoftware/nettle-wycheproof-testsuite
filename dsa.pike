@@ -18,20 +18,11 @@ bool dsa_test(mapping test, string algorithm) {
 
 	state1->set_public_key(Gmp.mpz(key["p"], 16), Gmp.mpz(key["q"], 16), Gmp.mpz(key["g"], 16), Gmp.mpz(key["y"], 16));
 
-	mixed sha;
-	switch(test["sha"]) {
-		case "SHA-1":
-			sha = Crypto.SHA1;
-			break;
-		case "SHA-224":
-			sha = Crypto.SHA224;
-			break;
-		case "SHA-256":
-			sha = Crypto.SHA256;
-			break;
-		default:
-			log_err(DBG_ERROR, false, "Unknown SHA function in tcId %d (%s).", test["tcId"], test["sha"]);
-			return false;
+	mixed sha = get_sha_function(test["sha"]);
+
+	if(!sha) {
+		log_err(DBG_ERROR, false, "Unknown SHA function in tcId %d (%s).", test["tcId"], test["sha"]);
+		return false;
 	}
 
 	bool ret = false;

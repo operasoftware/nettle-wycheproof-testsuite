@@ -58,6 +58,11 @@ bool ecdsa_test(mapping test, string algorithm) {
 
 	mixed sha = get_sha_function(test["sha"]);
 
+	if(!sha) {
+		log_err(DBG_ERROR, false, "Unknown SHA function in tcId %d (%s).", test["tcId"], test["sha"]);
+		return false;
+	}
+
 	bool ret = false;
 
 	array err = catch { ret = ECDSA->pkcs_verify(test["msg"], sha, test["sig"]); };

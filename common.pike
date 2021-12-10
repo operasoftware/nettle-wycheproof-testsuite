@@ -58,6 +58,9 @@ void convert_test_to_string(mapping test) {
 mixed get_sha_function(string sha_string) {
 	mixed sha;
 	switch(sha_string) {
+		case "SHA-1":
+			sha = Crypto.SHA1;
+			break;
 		case "SHA-224":
 			sha = Crypto.SHA224;
 			break;
@@ -70,6 +73,9 @@ mixed get_sha_function(string sha_string) {
 		case "SHA-512":
 			sha = Crypto.SHA512;
 			break;
+		case "SHA3-224":
+			sha = Crypto.SHA3_224;
+			break;
 		case "SHA3-256":
 			sha = Crypto.SHA3_256;
 			break;
@@ -79,9 +85,19 @@ mixed get_sha_function(string sha_string) {
 		case "SHA3-512":
 			sha = Crypto.SHA3_512;
 			break;
+#if constant(Crypto.SHA512_256)
+		case "SHA-512/256":
+			sha = Crypto.SHA512_256;
+			break;
+#endif
+#if constant(Crypto.SHA512_224)
+		case "SHA-512/224":
+			sha = Crypto.SHA512_224;
+			break;
+#endif
 		default:
-			log_err(DBG_ERROR, false, "Unknown SHA function (%s)!", sha_string);
-			exit(1);
+//			log_err(DBG_ERROR, false, "Unknown SHA function (%s)!", sha_string); // should be handled by the caller
+			break;
 	}
 
 	return sha;

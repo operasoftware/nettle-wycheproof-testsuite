@@ -23,7 +23,7 @@
 #include "eddsa.pike"
 #include "mactest.pike"
 #include "primal.pike"
-
+#include "rsa_verify.pike"
 
 /*
  * Prepares an array of mappings from JSON files

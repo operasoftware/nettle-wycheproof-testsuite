@@ -41,6 +41,9 @@ mapping(string:function) algo_functions = ([
 
 	/* PrimalityTest Tests */
 	"PrimalityTest": Crypto.ECC,
+
+	/* RsassaPkcs1Verify Tests */
+	"RSASSA-PKCS1-v1_5": Standards.PKCS.RSA.parse_public_key,
 ]);
 
 /*
@@ -70,11 +73,11 @@ constant test_vectors = ({
 	"dsa_3072_256_sha256_test.json",
 
 	/* DSAP1363 Tests */
-	"dsa_2048_224_sha224_p1363_test.json",
+/*	"dsa_2048_224_sha224_p1363_test.json",
 	"dsa_2048_224_sha256_p1363_test.json",
 	"dsa_2048_256_sha256_p1363_test.json",
 	"dsa_3072_256_sha256_p1363_test.json",
-
+*/
 	/* ECDSA Tests */
 	"ecdsa_brainpoolP224r1_sha224_test.json",
 	"ecdsa_brainpoolP256r1_sha256_test.json",
@@ -103,7 +106,7 @@ constant test_vectors = ({
 	"ecdsa_secp521r1_sha512_test.json",
 
 	/* ECDSAP1363 Tests */
-	"ecdsa_brainpoolP224r1_sha224_p1363_test.json",
+/*	"ecdsa_brainpoolP224r1_sha224_p1363_test.json",
 	"ecdsa_brainpoolP256r1_sha256_p1363_test.json",
 	"ecdsa_brainpoolP320r1_sha384_p1363_test.json",
 	"ecdsa_brainpoolP384r1_sha384_p1363_test.json",
@@ -119,7 +122,7 @@ constant test_vectors = ({
 	"ecdsa_secp384r1_sha512_p1363_test.json",
 	"ecdsa_secp521r1_sha512_p1363_test.json",
 	"ecdsa_webcrypto_test.json",
-
+*/
 	/* EDDSA Tests */
 	"eddsa_test.json",
 	"ed448_test.json",
@@ -138,6 +141,30 @@ constant test_vectors = ({
 
 	/* PrimalityTest Tests */
 	"primality_test.json",
+
+	/* RsassaPkcs1Verify Tests */
+	"rsa_signature_2048_sha224_test.json",
+	"rsa_signature_2048_sha256_test.json",
+	"rsa_signature_2048_sha384_test.json",
+	"rsa_signature_2048_sha3_224_test.json",
+	"rsa_signature_2048_sha3_256_test.json",
+	"rsa_signature_2048_sha3_384_test.json",
+	"rsa_signature_2048_sha3_512_test.json",
+	"rsa_signature_2048_sha512_224_test.json",
+	"rsa_signature_2048_sha512_256_test.json",
+	"rsa_signature_2048_sha512_test.json",
+	"rsa_signature_3072_sha256_test.json",
+	"rsa_signature_3072_sha384_test.json",
+	"rsa_signature_3072_sha3_256_test.json",
+	"rsa_signature_3072_sha3_384_test.json",
+	"rsa_signature_3072_sha3_512_test.json",
+	"rsa_signature_3072_sha512_256_test.json",
+	"rsa_signature_3072_sha512_test.json",
+	"rsa_signature_4096_sha384_test.json",
+	"rsa_signature_4096_sha512_256_test.json",
+
+	"rsa_signature_4096_sha512_test.json",
+	"rsa_signature_test.json",
 
 });
 
@@ -171,6 +198,9 @@ mapping(string:function) test_function_list = ([
 
 	/* PrimalityTest Tests */
 	"primality_test_schema.json": prime_tests,
+
+	/* RsassaPkcs1Verify Tests */
+	"rsassa_pkcs1_verify_schema.json": rsa_verify_tests,
 ]);
 
 /*

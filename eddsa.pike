@@ -3,9 +3,11 @@
  *
  * The Curve25519 and Curve448 algorithms are currently only available
  * in Pike 8.1.
+ * TODO: finish this. Currently untested.
  */
 
-/* The main test for EddsaVerify tests.
+/*
+ * The main test for EddsaVerify tests.
  * This function simply sets the public key, then verifies the message
  * and signature.
  * The function returns whether the test was successful(true) or not.
@@ -32,7 +34,30 @@ bool eddsa_test(mapping test, string algorithm) {
 
 	eddsa->set_public_key(String.hex2string(key["pk"]));
 
-	eddsa->pkcs_verify(test["msg"], 0, test["sig"]);
+	bool ret = false;
+
+	array err = catch { ret = eddsa->pkcs_verify(test["msg"], 0, test["sig"]); };
+
+	if(err) {
+		if(test["result"] == "valid") {
+			log_err(DBG_ERROR, false, "Unexpected error on a valid testcase tcId %d: %O.", test["tcId"], err);
+			return false;
+		}
+		DBG("GENERAL PASS");
+		return true;
+	}
+
+	if(test["result"] == "invalid") {
+		if(ret) {
+			log_err(DBG_ERROR, false, "Unexpected verify on an invalid testcase tcId %d.", test["tcId"]);
+			return false;
+		}
+	} else {
+		if(!ret && test["result"] != "acceptable") {
+			log_err(DBG_ERROR, false, "Unexpected failure on a seemingly valid testcase tcId %d.", test["tcId"]);
+			return false;
+		}
+	}
 
 	DBG("GENERAL PASS");
 	return true;
@@ -45,7 +70,7 @@ bool eddsa_test(mapping test, string algorithm) {
  */
 int eddsa_tests(mapping testGroup, string algorithm) {
 #if !constant(Crypto.ECC.Curve25519) || !constant(Crypto.ECC.Curve448)
-	log_err(DBG_INFO, false, "Skipping EDDSA tests because Pike does not support it.");
+	DBG("Skipping EDDSA tests because Pike does not support it.");
 	return 0;
 #endif
 	int numTests = sizeof(testGroup["tests"]);
