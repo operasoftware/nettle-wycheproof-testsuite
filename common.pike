@@ -13,6 +13,7 @@
 
 bool j_car = false; //horrible hack to use carriages for logging
 bool dbg_mode = false;
+string force_test;
 
 /*
  * Returns the correct function to initalize a state (normally)

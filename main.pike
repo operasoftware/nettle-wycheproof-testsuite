@@ -56,6 +56,10 @@ array prepare_json_cases() {
 			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to the lack of support in Nettle of the algorithm %s.", test_vectors[i], (string)json_vector["algorithm"]);
 		}
 
+		if(force_test && force_test != (string)json_vector["algorithm"]) {
+			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to force-ful mode.", test_vectors[i]);
+		}
+
 		maps[cases] = json_vector;
 		maps[cases++]["file"] = (["name": test_vectors[i]]);
 		totaltests += (int)json_vector["numberOfTests"];
@@ -71,8 +75,12 @@ array prepare_json_cases() {
  * Driver/Main script.
  */
 int main(int argc, array(string) argv) {
-	if(argc > 1 && argv[1] == "D")
-		dbg_mode = true;
+	for(int j=1; j<argc; j++) {
+		if(argv[j] == "D")
+			dbg_mode = true;
+		else
+			force_test = argv[j];
+	}
 	array maps = prepare_json_cases();
 
 	if(maps[0] == 0) {

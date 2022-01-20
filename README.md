@@ -15,8 +15,11 @@ Commit `5c180c4e54f94ace678d7a6feb4a033958e83d00` is an excellent example of jus
 # Runs all of the Wycheproof tests in Pike.
 pike main.pike
 
-# Runs the tests with verbose debugging information
+# Runs all the tests with verbose debugging information
 pike main.pike D
+
+# Runs tests for a specific algorithm
+pike main.pike RSAES-PKCS1-v1_5-DEC
 ```
 
 ## Results
