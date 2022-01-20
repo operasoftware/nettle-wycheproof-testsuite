@@ -23,11 +23,23 @@ pike main.pike D
 A list of issues found by this program are listed below.
 
 ### Crypto.AES.CCM
-1. Null Pointer Dereference
-[Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10072)
+1. Null Pointer Dereference [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10072)
 2. Incorrect Digest [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10074)
+3. Documentation Lacks IV Truncation Information [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10073)
 
 ### Crypto.DSA
-1. Infinite loop [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10075)
+1. Infinite Loop [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10075)
+2. Modified r,s Values Verify With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10077)
+3. PKCS Signatured Verified With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10076)
+
+### Gmp.mpz.probably_prime_p
+1. Inconsistent Prime Handling [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10079)
+
+### Crypto.ECC.SECP_521R1
+1. Incorrect Signature Verification [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10078)
+
+## Ideas
+1. In various cases, different forms/types of data are provided with respect to keys. For example, public/private keys may be provided in both pem and DER formatting. One test could ensure these keys are parsed to be the same.
+
 ## License
 The Wycheproof project and its testcases are provided under the apache-2.0 license.

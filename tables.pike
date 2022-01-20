@@ -44,6 +44,11 @@ mapping(string:function) algo_functions = ([
 
 	/* RsassaPkcs1Verify Tests */
 	"RSASSA-PKCS1-v1_5": Standards.PKCS.RSA.parse_public_key,
+
+	/* RsassaPkcs1Generate Tests */
+	"RSASSA-PKCS1-v1_5-GEN": Standards.PKCS.parse_private_key, // NB: Not Standards.PKCS.RSA.parse_private_key.
+
+
 ]);
 
 /*
@@ -162,9 +167,23 @@ constant test_vectors = ({
 	"rsa_signature_3072_sha512_test.json",
 	"rsa_signature_4096_sha384_test.json",
 	"rsa_signature_4096_sha512_256_test.json",
-
 	"rsa_signature_4096_sha512_test.json",
 	"rsa_signature_test.json",
+
+	/* RsassaPssVerify Tests */
+/*	"rsa_pss_2048_sha1_mgf1_20_test.json",
+	"rsa_pss_2048_sha256_mgf1_0_test.json",
+	"rsa_pss_2048_sha256_mgf1_32_test.json",
+	"rsa_pss_2048_sha512_256_mgf1_28_test.json",
+	"rsa_pss_2048_sha512_256_mgf1_32_test.json",
+	"rsa_pss_3072_sha256_mgf1_32_test.json",
+	"rsa_pss_4096_sha256_mgf1_32_test.json",
+	"rsa_pss_4096_sha512_mgf1_32_test.json",
+	"rsa_pss_misc_test.json"
+*/
+
+	/* RsassaPkcs1Generate Tests */
+	"rsa_sig_gen_misc_test.json",
 
 });
 
@@ -201,6 +220,9 @@ mapping(string:function) test_function_list = ([
 
 	/* RsassaPkcs1Verify Tests */
 	"rsassa_pkcs1_verify_schema.json": rsa_verify_tests,
+
+	/* RsassaPkcs1Generate Tests */
+	"rsassa_pkcs1_generate_schema.json": rsa_generate_tests,
 ]);
 
 /*

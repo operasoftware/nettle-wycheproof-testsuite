@@ -24,6 +24,7 @@
 #include "mactest.pike"
 #include "primal.pike"
 #include "rsa_verify.pike"
+#include "rsa_generate.pike"
 
 /*
  * Prepares an array of mappings from JSON files
