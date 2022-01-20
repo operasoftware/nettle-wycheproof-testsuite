@@ -182,6 +182,27 @@ constant test_vectors = ({
 	"rsa_pss_misc_test.json"
 */
 
+	/* RsaesOaepDecrypt Tests */
+/*	"rsa_oaep_2048_sha1_mgf1sha1_test.json",
+	"rsa_oaep_2048_sha224_mgf1sha1_test.json",
+	"rsa_oaep_2048_sha224_mgf1sha224_test.json",
+	"rsa_oaep_2048_sha256_mgf1sha1_test.json",
+	"rsa_oaep_2048_sha256_mgf1sha256_test.json",
+	"rsa_oaep_2048_sha384_mgf1sha1_test.json",
+	"rsa_oaep_2048_sha384_mgf1sha384_test.json",
+	"rsa_oaep_2048_sha512_mgf1sha1_test.json",
+	"rsa_oaep_2048_sha512_mgf1sha512_test.json",
+	"rsa_oaep_3072_sha256_mgf1sha1_test.json",
+	"rsa_oaep_3072_sha256_mgf1sha256_test.json",
+	"rsa_oaep_3072_sha512_mgf1sha1_test.json",
+	"rsa_oaep_3072_sha512_mgf1sha512_test.json",
+	"rsa_oaep_4096_sha256_mgf1sha1_test.json",
+	"rsa_oaep_4096_sha256_mgf1sha256_test.json",
+	"rsa_oaep_4096_sha512_mgf1sha1_test.json",
+	"rsa_oaep_4096_sha512_mgf1sha512_test.json",
+	"rsa_oaep_misc_test.json",
+*/
+
 	/* RsassaPkcs1Generate Tests */
 	"rsa_sig_gen_misc_test.json",
 
