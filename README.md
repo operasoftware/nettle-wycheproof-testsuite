@@ -38,6 +38,9 @@ A list of issues found by this program are listed below.
 ### Crypto.ECC.SECP_521R1
 1. Incorrect Signature Verification [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10078)
 
+### Crypto.RSA
+1. Decryption With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10080)
+
 ## Ideas
 1. In various cases, different forms/types of data are provided with respect to keys. For example, public/private keys may be provided in both pem and DER formatting. One test could ensure these keys are parsed to be the same.
 

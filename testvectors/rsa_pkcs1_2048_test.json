@@ -1,5 +1,5 @@
 {
-  "algorithm" : "RSAES-PKCS1-v1_5",
+  "algorithm" : "RSAES-PKCS1-v1_5-DEC",
   "generatorVersion" : "0.8r12",
   "numberOfTests" : 65,
   "header" : [

@@ -25,6 +25,7 @@
 #include "primal.pike"
 #include "rsa_verify.pike"
 #include "rsa_generate.pike"
+#include "rsa_decrypt.pike"
 
 /*
  * Prepares an array of mappings from JSON files

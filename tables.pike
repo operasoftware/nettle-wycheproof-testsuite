@@ -48,6 +48,9 @@ mapping(string:function) algo_functions = ([
 	/* RsassaPkcs1Generate Tests */
 	"RSASSA-PKCS1-v1_5-GEN": Standards.PKCS.parse_private_key, // NB: Not Standards.PKCS.RSA.parse_private_key.
 
+	/* RsaesPkcs1Decrypt Tests */
+	"RSAES-PKCS1-v1_5-DEC": Standards.PKCS.parse_private_key, // NB: As above.
+
 
 ]);
 
@@ -206,10 +209,16 @@ constant test_vectors = ({
 	/* RsassaPkcs1Generate Tests */
 	"rsa_sig_gen_misc_test.json",
 
+	/* RsaesPkcs1Decrypt Tests */
+	"rsa_pkcs1_2048_test.json",
+	"rsa_pkcs1_3072_test.json",
+	"rsa_pkcs1_4096_test.json",
+
 });
 
 /*
- * A list of the types of tests corresponding to their testing function
+ * A list of the types(schemas) of tests corresponding to their testing
+ * function.
  */
 mapping(string:function) test_function_list = ([
 	/* AEAD Testing */
@@ -244,6 +253,9 @@ mapping(string:function) test_function_list = ([
 
 	/* RsassaPkcs1Generate Tests */
 	"rsassa_pkcs1_generate_schema.json": rsa_generate_tests,
+
+	/* RsaesPkcs1Decrypt Tests */
+	"rsaes_pkcs1_decrypt_schema.json": rsa_decrypt_tests,
 ]);
 
 /*
