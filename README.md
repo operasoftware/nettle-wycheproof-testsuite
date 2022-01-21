@@ -36,6 +36,9 @@ A list of issues found by this program are listed below.
 2. Modified r,s Values Verify With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10077)
 3. PKCS Signatured Verified With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10076)
 
+### Crypto.ECC.ECDSA
+1. PKCS Signatured Verified With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10076)
+
 ### Gmp.mpz.probably_prime_p
 1. Inconsistent Prime Handling [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10079)
 
