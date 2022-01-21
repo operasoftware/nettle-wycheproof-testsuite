@@ -54,6 +54,7 @@ A list of issues found by this program are listed below.
 2. Properly implement ECDH tests.
 3. Test using Pike 8.1, which should allow tests involving Crypto.SHA512_256, Crypto.SHA512_224, Crypto.ECC.SECP_224R1, Crypto.ECC.Curve25519/Crypto.ECC.Curve448(EDDSA) automatically.
 4. Implement Pike 8.1 tests (where possible) for AEAD-AES-SIV-CMAC, AES-CMAC, AEGIS128L, AEGIS128, AEGIS256, AES-GCM-SIV, XCHACHA20-POLY1305, RSASSA-PSS, RSAES-OAEP, AES-GMAC, VMAC-AES, HKDF-SHA-1, HKDF-SHA-256, HKDF-SHA-384, HKDF-SHA-512, KW, KWP, XDH
+5. Run the tests on hardware which Nettle has assembly optimization -- for example, ARM and SPARC.
 
 ## License
 The Wycheproof project and its testcases are provided under the apache-2.0 license.
