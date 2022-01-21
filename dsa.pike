@@ -1,7 +1,5 @@
 /*
  * dsa.pike: Functions concerning the DsaVerify tests.
- *
- * All SHA algorithms are supported.
  */
 
 /*

@@ -2,10 +2,11 @@
 
 Pike-Wycheproof is a project to utilize the [Wycheproof](https://github.com/google/wycheproof) cryptographic testcases in Pike, in order to test both the Nettle cryptographic library, and Pike's glue(bindings) to the library.
 
-Various vectors of tests are grouped together into common testing types, each corresponding to a file in the project. Because each testing type generally follow the same formula (e.g. `encrypt()`; `decrypt()`; `verify()`), each vector shares similar functions. In specific cases of common testing types needing irregular actions to be taken, the `special_action_table` array (in `tables.pike`) handles one(or more)-off functions which can be used to prepare the special cases. For example, the AeadTest-type algorithm "AES-GCM" is special from other AeadTest-types, in that it cannot calculate a truncated digest, and thus special handling must be done to the test's data before the testing begins.
+Various vectors of tests are grouped together into common testing types, each corresponding to a file in the project. Because each testing type generally follow the same formula (e.g. `encrypt()`; `decrypt()`; `verify()`), each vector shares similar functions.
+In specific cases of common testing types needing irregular actions to be taken, the `special_action_table` array (in `tables.pike`) handles one(or more)-off functions which can be used to prepare the special cases. For example, the AeadTest-type algorithm "AES-GCM" is special from other AeadTest-types, in that it cannot calculate a truncated digest, and thus special handling must be done to the test's data before the testing begins.
 
 The program is made in such a way that new testcases can be added more-or-less in a plug-and-play fashion.
-For example, if new [IndCpaTest](https://github.com/google/wycheproof/blob/master/doc/files.md#IndCpaTest) (corresponding to the [ind_cpa_test_schema.json](https://github.com/google/wycheproof/blob/master/doc/types.md#indcpatestgroup) test group) test vectors are released in the future, it is only necessary to update the file `tables.pike` with an addition to the array `test_vectors` of the new vector's filename (and possible to the mapping `algo_functions` if a different algorithm is used).
+For example, if new [IndCpaTest](https://github.com/google/wycheproof/blob/master/doc/files.md#IndCpaTest) (corresponding to the [ind_cpa_test_schema.json](https://github.com/google/wycheproof/blob/master/doc/types.md#indcpatestgroup) test group) test vectors are released in the future, it is only necessary to update the file `tables.pike` with an addition to the array `test_vectors` of the new vector's filename (and possibly to the mapping `algo_functions` if a different algorithm is used).
 
 Commit `5c180c4e54f94ace678d7a6feb4a033958e83d00` is an excellent example of just how easy it is to add new test vectors which are automatically cycled through via the main script.
 
@@ -15,10 +16,10 @@ Commit `5c180c4e54f94ace678d7a6feb4a033958e83d00` is an excellent example of jus
 # Runs all of the Wycheproof tests in Pike.
 pike main.pike
 
-# Runs all the tests with verbose debugging information
+# Runs all the tests with verbose debugging information.
 pike main.pike D
 
-# Runs tests for a specific algorithm
+# Runs tests for a specific algorithm (NOT 'type').
 pike main.pike RSAES-PKCS1-v1_5-DEC
 ```
 
@@ -47,8 +48,8 @@ A list of issues found by this program are listed below.
 ## Ideas
 1. In various cases, different forms/types of data are provided with respect to keys. For example, public/private keys may be provided in both pem and DER formatting. One test could ensure these keys are parsed to be the same.
 2. Properly implement ECDH tests.
-3. Test using Pike 8.1, which should allow tests involving Crypto.SHA512_256, Crypto.SHA512_224, Crypto.ECC.SECP_224R1, Crypto.ECC.Curve25519, Crypto.ECC.Curve448 automatically.
-3. Implement Pike 8.1 tests (where possible) for AEAD-AES-SIV-CMAC, AES-CMAC, AEGIS128L, AEGIS128, AEGIS256, AES-GCM-SIV, XCHACHA20-POLY1305, RSASSA-PSS, RSAES-OAEP, AES-GMAC, VMAC-AES, HKDF-SHA-1, HKDF-SHA-256, HKDF-SHA-384, HKDF-SHA-512, KW, KWP, XDH
+3. Test using Pike 8.1, which should allow tests involving Crypto.SHA512_256, Crypto.SHA512_224, Crypto.ECC.SECP_224R1, Crypto.ECC.Curve25519/Crypto.ECC.Curve448(EDDSA) automatically.
+4. Implement Pike 8.1 tests (where possible) for AEAD-AES-SIV-CMAC, AES-CMAC, AEGIS128L, AEGIS128, AEGIS256, AES-GCM-SIV, XCHACHA20-POLY1305, RSASSA-PSS, RSAES-OAEP, AES-GMAC, VMAC-AES, HKDF-SHA-1, HKDF-SHA-256, HKDF-SHA-384, HKDF-SHA-512, KW, KWP, XDH
 
 ## License
 The Wycheproof project and its testcases are provided under the apache-2.0 license.

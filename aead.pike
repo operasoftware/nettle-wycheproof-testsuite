@@ -1,8 +1,5 @@
 /*
  * aead.pike: Functions concerning the AeadTest tests.
- *
- * The AES-GCM, AES-EAX, AES-CCM, CHACHA20-POLY1305 algorithms
- * are currently supported. AEAD-AES-SIV-CMAC is currently missing.
  */
 
 /*
@@ -163,7 +160,7 @@ bool aead_test_roundtrip(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with AEAD-type tests, and returns the number of failed tests.
+ * This function deals with AeadTest tests, and returns the number of failed tests.
  */
 int aead_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);

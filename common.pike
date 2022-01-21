@@ -1,7 +1,7 @@
 /*
  * common.pike: Common Functions.
  *
- * Various functions which are used throughout different pike files of
+ * Various functions which are used throughout different Pike files of
  * this project, such as for error logging.
  */
 

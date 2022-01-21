@@ -1,8 +1,5 @@
 /*
  * rsa_verify.pike: Functions concerning the RsassaPkcs1Verify tests.
- *
- * All SHA types are supported, however SHA-512/224 and SHA-512/256 are
- * only supported in Pike/8.1+.
  */
 
 /*
@@ -52,7 +49,7 @@ bool rsa_verify_test(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with RSA/PKCS1-type tests, and returns the number of failed tests.
+ * This function deals with RsassaPkcs1Verify tests, and returns the number of failed tests.
  */
 int rsa_verify_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);

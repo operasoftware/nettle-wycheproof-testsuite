@@ -1,9 +1,5 @@
 /*
  * ecdh_point.pike: Functions concerning the EcdhEcpointTest tests.
- *
- * The SECP521R1, SECP384R1, SECP256R1, and SECP224R1 curves are
- * currently supported, however the latter one is not supported in all
- * versions of Pike.
  * It's not completely clear what tests should be conducted here, so
  * this script simply loads the publickey/point, and checks whether
  * it was successful.
@@ -87,7 +83,8 @@ bool ecdh_point_test(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with ECDSA-type tests, and returns the number of failed tests.
+ * This function deals with EcdhEcpointTest tests, and returns the number of
+ * failed tests.
  */
 int ecdh_point_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);

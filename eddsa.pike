@@ -1,9 +1,5 @@
 /*
  * eddsa.pike: Functions concerning the EddsaVerify tests.
- *
- * The Curve25519 and Curve448 algorithms are currently only available
- * in Pike 8.1.
- * TODO: finish this. Currently untested.
  */
 
 /*
@@ -19,14 +15,19 @@ bool eddsa_test(mapping test, string algorithm) {
 	begin_ever(test["tcId"], test["comment"]);
 
 	switch(key["curve"]) {
+#if constant(Crypto.ECC.Curve25519)
 		case "edwards25519":
 			curve = curve.Curve25519;
 			break;
+#endif
+#if constant(Crypto.ECC.Curve448)
 		case "edwards448":
 			curve = curve.Curve448;
 			break;
+#endif
 		default:
-			log_err(DBG_ERROR, false, "Unknown curve in tcId %d: %s.", test["tcId"], test["curve"]);
+//			log_err(DBG_ERROR, false, "Unknown curve in tcId %d: %s.", test["tcId"], test["curve"]);
+			//quietly fail if Pike8
 			return false;
 	}
 
@@ -66,13 +67,9 @@ bool eddsa_test(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with EDDSA-type tests, and returns the number of failed tests.
+ * This function deals with EddsaVerify tests, and returns the number of failed tests.
  */
 int eddsa_tests(mapping testGroup, string algorithm) {
-#if !constant(Crypto.ECC.Curve25519) || !constant(Crypto.ECC.Curve448)
-	DBG("Skipping EDDSA tests because Pike does not support it.");
-	return 0;
-#endif
 	int numTests = sizeof(testGroup["tests"]);
 
 	mapping key = testGroup["key"]; //unencoded EC Pubkey

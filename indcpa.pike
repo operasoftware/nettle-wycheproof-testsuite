@@ -1,7 +1,5 @@
 /*
  * indcpa.pike: Functions concerning the IndCpaTest tests.
- *
- * The AES-CBC-PKCS5 algorithm is currently supported.
  */
 
 /*
@@ -109,7 +107,7 @@ bool indcpa_test_roundtrip(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with indcpa-type tests, and returns the number of failed tests.
+ * This function deals with IndCpaTest tests, and returns the number of failed tests.
  */
 int indcpa_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);

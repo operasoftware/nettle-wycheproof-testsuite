@@ -1,7 +1,5 @@
 /*
  * mactest.pike: Functions concerning the MacTest tests.
- * The SHA1, SHA224, SHA256, SHA384, SHA3-224, SHA3-256, SHA3-384,
- * SHA3-512, and SHA-512 algorithms are all supported. AES-CMAC is not.
  */
 
 /*
@@ -38,7 +36,7 @@ bool mactest_test(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with MAC-type tests, and returns the number of failed tests.
+ * This function deals with MacTest tests, and returns the number of failed tests.
  */
 int mactest_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);

@@ -1,7 +1,5 @@
 /*
  * rsa_generate.pike: Functions concerning the RsassaPkcs1Generate tests.
- *
- * All SHA types except for SHA-224 are supported.
  */
 
 /*
@@ -48,7 +46,7 @@ bool rsa_generate_test(mapping test, string algorithm) {
 /*
  * This function loops through each of the tests, and runs the cases through
  * each of the function(s) corresponding to the type of test.
- * This function deals with RSA/PKCS1-type tests, and returns the number of failed tests.
+ * This function deals with RsassaPkcs1Generate tests, and returns the number of failed tests.
  */
 int rsa_generate_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);
