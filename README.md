@@ -3,6 +3,7 @@
 Pike-Wycheproof is a project to utilize the [Wycheproof](https://github.com/google/wycheproof) cryptographic testcases in Pike, in order to test both the Nettle cryptographic library, and Pike's glue(bindings) to the library.
 
 Various vectors of tests are grouped together into common testing types, each corresponding to a file in the project. Because each testing type generally follow the same formula (e.g. `encrypt()`; `decrypt()`; `verify()`), each vector shares similar functions.
+
 In specific cases of common testing types needing irregular actions to be taken, the `special_action_table` array (in `tables.pike`) handles one(or more)-off functions which can be used to prepare the special cases. For example, the AeadTest-type algorithm "AES-GCM" is special from other AeadTest-types, in that it cannot calculate a truncated digest, and thus special handling must be done to the test's data before the testing begins.
 
 The program is made in such a way that new testcases can be added more-or-less in a plug-and-play fashion.
