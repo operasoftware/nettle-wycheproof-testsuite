@@ -21,6 +21,7 @@
 #include "dsa.pike"
 #include "ecdsa.pike"
 #include "eddsa.pike"
+#include "ecdh_point.pike"
 #include "mactest.pike"
 #include "primal.pike"
 #include "rsa_verify.pike"

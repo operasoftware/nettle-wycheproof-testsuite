@@ -13,7 +13,7 @@ mapping(string:function) algo_functions = ([
 	"AES-EAX": Crypto.AES.EAX.State, /*EAX*/
 	"AES-CCM": Crypto.AES.CCM.State, /*CCM*/
 	"CHACHA20-POLY1305": Crypto.ChaCha20.POLY1305.State, /*ChaCha-Poly1305*/
-//	"AEAD-AES-SIV-CMAC" : ??,
+//	"AEAD-AES-SIV-CMAC" : CMAC is not implemented in Pike8
 
 	/* IndCpa Tests */
 	"AES-CBC-PKCS5": Crypto.AES.CBC.Buffer, /*AES-CBC-PKCS5*/
@@ -27,6 +27,9 @@ mapping(string:function) algo_functions = ([
 	/* EDDSA Tests */
 	"EDDSA": Crypto.ECC, /*EDDSA*/
 
+	/* ECDH Tests */
+	"ECDH": Crypto.ECC, /*ECDH*/
+
 	/* MacTest Tests */
 	"HMACSHA1": Crypto.HMAC(Crypto.SHA1), /*HMAC-SHA-1*/
 	"HMACSHA224": Crypto.HMAC(Crypto.SHA224), /*HMAC-SHA-224*/
@@ -37,7 +40,7 @@ mapping(string:function) algo_functions = ([
 	"HMACSHA3-256": Crypto.HMAC(Crypto.SHA3_256), /*HMAC-SHA-3-256*/
 	"HMACSHA3-384": Crypto.HMAC(Crypto.SHA3_384), /*HMAC-SHA-3-384*/
 	"HMACSHA3-512": Crypto.HMAC(Crypto.SHA3_512), /*HMAC-SHA-3-512*/
-//	"AES-CMAC": ??,
+//	"AES-CMAC": CMAC is not implemented in Pike8
 
 	/* PrimalityTest Tests */
 	"PrimalityTest": Crypto.ECC,
@@ -134,6 +137,12 @@ constant test_vectors = ({
 	/* EDDSA Tests */
 	"eddsa_test.json",
 	"ed448_test.json",
+
+	/* EcdhEcpointTest Tests */
+	"ecdh_secp224r1_ecpoint_test.json",
+	"ecdh_secp256r1_ecpoint_test.json",
+	"ecdh_secp384r1_ecpoint_test.json",
+	"ecdh_secp521r1_ecpoint_test.json",
 
 	/* MacTest Tests */
 	"aes_cmac_test.json",
@@ -241,6 +250,9 @@ mapping(string:function) test_function_list = ([
 
 	/* EDDSA Tests */
 	"eddsa_verify_schema.json": eddsa_tests,
+
+	/* ECDH Tests */
+	"ecdh_ecpoint_test_schema.json": ecdh_point_tests,
 
 	/* MacTest Tests */
 	"mac_test_schema.json": mactest_tests,

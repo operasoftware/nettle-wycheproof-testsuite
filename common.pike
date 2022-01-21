@@ -44,7 +44,7 @@ void handle_special_actions(mapping test, string algorithm) {
  * Converts various hex-encoded text into their rexpective 8-bit strings.
  */
 void convert_test_to_string(mapping test) {
-	array convertable = ({"key", "iv", "aad", "msg", "ct", "sig", "tag"});
+	array convertable = ({"key", "iv", "aad", "msg", "ct", "sig", "tag", "public"});
 
 	for(int i=0; i<sizeof(convertable); i++) {
 		if(test[convertable[i]])
