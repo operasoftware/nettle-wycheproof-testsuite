@@ -8,26 +8,25 @@
  * state = algo_functions[0]();
  */
 mapping(string:function) algo_functions = ([
-	/* AEAD Tests */
+	/* AeadTest Tests */
 	"AES-GCM": Crypto.AES.GCM.State, /*GCM*/
 	"AES-EAX": Crypto.AES.EAX.State, /*EAX*/
 	"AES-CCM": Crypto.AES.CCM.State, /*CCM*/
 	"CHACHA20-POLY1305": Crypto.ChaCha20.POLY1305.State, /*ChaCha-Poly1305*/
-//	"AEAD-AES-SIV-CMAC" : CMAC is not implemented in Pike8
 
-	/* IndCpa Tests */
+	/* IndCpaTest Tests */
 	"AES-CBC-PKCS5": Crypto.AES.CBC.Buffer, /*AES-CBC-PKCS5*/
 
-	/* DSA Tests */
+	/* DsaVerify Tests */
 	"DSA": Crypto.DSA.State, /*DSA(SHA-1,SHA-224,SHA-256,SHA-256)*/
 
-	/* ECDSA Tests */
+	/* EcdsaVerify Tests */
 	"ECDSA": Crypto.ECC, /*ECDSA*/
 
-	/* EDDSA Tests */
+	/* EddsaVerify Tests */
 	"EDDSA": Crypto.ECC, /*EDDSA*/
 
-	/* ECDH Tests */
+	/* EcdhEcpointTest Tests */
 	"ECDH": Crypto.ECC, /*ECDH*/
 
 	/* MacTest Tests */
@@ -40,7 +39,6 @@ mapping(string:function) algo_functions = ([
 	"HMACSHA3-256": Crypto.HMAC(Crypto.SHA3_256), /*HMAC-SHA-3-256*/
 	"HMACSHA3-384": Crypto.HMAC(Crypto.SHA3_384), /*HMAC-SHA-3-384*/
 	"HMACSHA3-512": Crypto.HMAC(Crypto.SHA3_512), /*HMAC-SHA-3-512*/
-//	"AES-CMAC": CMAC is not implemented in Pike8
 
 	/* PrimalityTest Tests */
 	"PrimalityTest": Crypto.ECC,
@@ -54,7 +52,6 @@ mapping(string:function) algo_functions = ([
 	/* RsaesPkcs1Decrypt Tests */
 	"RSAES-PKCS1-v1_5-DEC": Standards.PKCS.parse_private_key, // NB: As above.
 
-
 ]);
 
 /*
@@ -62,7 +59,7 @@ mapping(string:function) algo_functions = ([
  * Not all files may be supported.
  */
 constant test_vectors = ({
-	/* AEAD Tests */
+	/* AeadTest Tests */
 	"aead_aes_siv_cmac_test.json",
 	"aegis128L_test.json",
 	"aegis128_test.json",
@@ -74,22 +71,22 @@ constant test_vectors = ({
 	"chacha20_poly1305_test.json",
 	"xchacha20_poly1305_test.json",
 
-	/* IndCpa Tests */
+	/* IndCpaTest Tests */
 	"aes_cbc_pkcs5_test.json",
 
-	/* DSA Tests */
+	/* DsaVerify Tests */
 	"dsa_2048_224_sha224_test.json",
 	"dsa_2048_224_sha256_test.json",
 	"dsa_2048_256_sha256_test.json",
 	"dsa_3072_256_sha256_test.json",
 
-	/* DSAP1363 Tests */
-/*	"dsa_2048_224_sha224_p1363_test.json",
+	/* DsaP1363Verify Tests */
+	"dsa_2048_224_sha224_p1363_test.json",
 	"dsa_2048_224_sha256_p1363_test.json",
 	"dsa_2048_256_sha256_p1363_test.json",
 	"dsa_3072_256_sha256_p1363_test.json",
-*/
-	/* ECDSA Tests */
+
+	/* EcdsaVerify Tests */
 	"ecdsa_brainpoolP224r1_sha224_test.json",
 	"ecdsa_brainpoolP256r1_sha256_test.json",
 	"ecdsa_brainpoolP320r1_sha384_test.json",
@@ -116,8 +113,8 @@ constant test_vectors = ({
 	"ecdsa_secp521r1_sha3_512_test.json",
 	"ecdsa_secp521r1_sha512_test.json",
 
-	/* ECDSAP1363 Tests */
-/*	"ecdsa_brainpoolP224r1_sha224_p1363_test.json",
+	/* EcdsaP1363Verify Tests */
+	"ecdsa_brainpoolP224r1_sha224_p1363_test.json",
 	"ecdsa_brainpoolP256r1_sha256_p1363_test.json",
 	"ecdsa_brainpoolP320r1_sha384_p1363_test.json",
 	"ecdsa_brainpoolP384r1_sha384_p1363_test.json",
@@ -133,8 +130,8 @@ constant test_vectors = ({
 	"ecdsa_secp384r1_sha512_p1363_test.json",
 	"ecdsa_secp521r1_sha512_p1363_test.json",
 	"ecdsa_webcrypto_test.json",
-*/
-	/* EDDSA Tests */
+
+	/* EddsaVerify Tests */
 	"eddsa_test.json",
 	"ed448_test.json",
 
@@ -143,6 +140,22 @@ constant test_vectors = ({
 	"ecdh_secp256r1_ecpoint_test.json",
 	"ecdh_secp384r1_ecpoint_test.json",
 	"ecdh_secp521r1_ecpoint_test.json",
+
+	/* EcdhTest Tests */
+	"ecdh_brainpoolP224r1_test.json",
+	"ecdh_brainpoolP256r1_test.json",
+	"ecdh_brainpoolP320r1_test.json",
+	"ecdh_brainpoolP384r1_test.json",
+	"ecdh_brainpoolP512r1_test.json",
+	"ecdh_secp224r1_test.json",
+	"ecdh_secp256k1_test.json",
+	"ecdh_secp256r1_test.json",
+	"ecdh_secp384r1_test.json",
+	"ecdh_secp521r1_test.json",
+	"ecdh_test.json",
+
+	/* EcdhWebcryptoTest Tests */
+	"ecdh_webcrypto_test.json",
 
 	/* MacTest Tests */
 	"aes_cmac_test.json",
@@ -156,8 +169,23 @@ constant test_vectors = ({
 	"hmac_sha3_512_test.json",
 	"hmac_sha512_test.json",
 
+	/* MacWithIvTest Tests */
+	"gmac_test.json",
+	"vmac_128_test.json",
+	"vmac_64_test.json",
+
 	/* PrimalityTest Tests */
 	"primality_test.json",
+
+	/* HkdfTest Tests */
+	"hkdf_sha1_test.json",
+	"hkdf_sha256_test.json",
+	"hkdf_sha384_test.json",
+	"hkdf_sha512_test.json",
+
+	/* KeywrapTest Tests */
+	"kw_test.json",
+	"kwp_test.json",
 
 	/* RsassaPkcs1Verify Tests */
 	"rsa_signature_2048_sha224_test.json",
@@ -183,7 +211,7 @@ constant test_vectors = ({
 	"rsa_signature_test.json",
 
 	/* RsassaPssVerify Tests */
-/*	"rsa_pss_2048_sha1_mgf1_20_test.json",
+	"rsa_pss_2048_sha1_mgf1_20_test.json",
 	"rsa_pss_2048_sha256_mgf1_0_test.json",
 	"rsa_pss_2048_sha256_mgf1_32_test.json",
 	"rsa_pss_2048_sha512_256_mgf1_28_test.json",
@@ -191,11 +219,11 @@ constant test_vectors = ({
 	"rsa_pss_3072_sha256_mgf1_32_test.json",
 	"rsa_pss_4096_sha256_mgf1_32_test.json",
 	"rsa_pss_4096_sha512_mgf1_32_test.json",
-	"rsa_pss_misc_test.json"
-*/
+	"rsa_pss_misc_test.json",
+
 
 	/* RsaesOaepDecrypt Tests */
-/*	"rsa_oaep_2048_sha1_mgf1sha1_test.json",
+	"rsa_oaep_2048_sha1_mgf1sha1_test.json",
 	"rsa_oaep_2048_sha224_mgf1sha1_test.json",
 	"rsa_oaep_2048_sha224_mgf1sha224_test.json",
 	"rsa_oaep_2048_sha256_mgf1sha1_test.json",
@@ -213,7 +241,6 @@ constant test_vectors = ({
 	"rsa_oaep_4096_sha512_mgf1sha1_test.json",
 	"rsa_oaep_4096_sha512_mgf1sha512_test.json",
 	"rsa_oaep_misc_test.json",
-*/
 
 	/* RsassaPkcs1Generate Tests */
 	"rsa_sig_gen_misc_test.json",
@@ -223,6 +250,22 @@ constant test_vectors = ({
 	"rsa_pkcs1_3072_test.json",
 	"rsa_pkcs1_4096_test.json",
 
+	/* XdhAsnComp Tests */
+	"x25519_asn_test.json",
+	"x448_asn_test.json",
+
+	/* XdhComp Tests */
+	"x25519_test.json",
+	"x448_test.json",
+
+	/* XdhJwkComp Tests */
+	"x25519_jwk_test.json",
+	"x448_jwk_test.json",
+
+	/* XdhPemComp Tests */
+	"x25519_pem_test.json",
+	"x448_pem_test.json",
+
 });
 
 /*
@@ -230,28 +273,22 @@ constant test_vectors = ({
  * function.
  */
 mapping(string:function) test_function_list = ([
-	/* AEAD Testing */
+	/* AeadTest Testing */
 	"aead_test_schema.json": aead_tests,
 
-	/* IndCpa Testing */
+	/* IndCpaTest Testing */
 	"ind_cpa_test_schema.json": indcpa_tests,
 
-	/* DSA Tests */
+	/* DsaVerify Tests */
 	"dsa_verify_schema.json": dsa_tests,
 
-	/* DSAP1363 Tests */
-	"dsa_p1363_verify_schema.json": dsa_tests,
-
-	/* ECDSA Tests */
+	/* EcdsaVerify Tests */
 	"ecdsa_verify_schema.json": ecdsa_tests,
 
-	/* ECDSAP1363 Tests */
-	"ecdsa_p1363_verify_schema.json": ecdsa_tests,
-
-	/* EDDSA Tests */
+	/* EddsaVerify Tests */
 	"eddsa_verify_schema.json": eddsa_tests,
 
-	/* ECDH Tests */
+	/* EcdhEcpointTest Tests */
 	"ecdh_ecpoint_test_schema.json": ecdh_point_tests,
 
 	/* MacTest Tests */

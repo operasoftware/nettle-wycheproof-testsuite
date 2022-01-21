@@ -54,7 +54,7 @@ array prepare_json_cases() {
 		}
 
 		if(!lookup_init((string)json_vector["algorithm"])) {
-			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to the lack of support in Nettle of the algorithm %s.", test_vectors[i], (string)json_vector["algorithm"]);
+			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to the lack of support in Pike/Nettle of the algorithm %s.", test_vectors[i], (string)json_vector["algorithm"]);
 		}
 
 		if(force_test && force_test != (string)json_vector["algorithm"]) {
@@ -99,7 +99,8 @@ int main(int argc, array(string) argv) {
 			mixed testGroup = maps[i]["testGroups"][j];
 			function function_to_use = lookup_function(maps[i]["schema"]);
 
-			fail_count += function_to_use(testGroup, algorithm);
+			if(function_to_use)
+				fail_count += function_to_use(testGroup, algorithm);
 		}
 
 		log_err((fail_count == 0) ? DBG_SUCCESS : DBG_ERROR, false, "Finished testing %s. %d/%d failed tests.", algorithm, fail_count, maps[i]["numberOfTests"]);
