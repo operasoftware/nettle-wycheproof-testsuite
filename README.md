@@ -9,7 +9,7 @@ In specific cases of common testing types needing irregular actions to be taken,
 The program is made in such a way that new testcases can be added more-or-less in a plug-and-play fashion.
 For example, if new [IndCpaTest](https://github.com/google/wycheproof/blob/master/doc/files.md#IndCpaTest) (corresponding to the [ind_cpa_test_schema.json](https://github.com/google/wycheproof/blob/master/doc/types.md#indcpatestgroup) test group) test vectors are released in the future, it is only necessary to update the file `tables.pike` with an addition to the array `test_vectors` of the new vector's filename (and possibly to the mapping `algo_functions` if a different algorithm is used).
 
-Commit [5c180c4e54f94ace678d7a6feb4a033958e83d00](/commit/5c180c4e54f94ace678d7a6feb4a033958e83d00) is an excellent example of just how easy it is to add new test vectors which are automatically cycled through via the main script.
+Commit 5c180c4e54f94ace678d7a6feb4a033958e83d00 is an excellent example of just how easy it is to add new test vectors which are automatically cycled through via the main script.
 
 A blog post detailing more of the development process of this project can be found [here](https://joshua.hu/pikeproof-wycheproof-pike-checks).
 
