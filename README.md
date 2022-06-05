@@ -9,7 +9,9 @@ In specific cases of common testing types needing irregular actions to be taken,
 The program is made in such a way that new testcases can be added more-or-less in a plug-and-play fashion.
 For example, if new [IndCpaTest](https://github.com/google/wycheproof/blob/master/doc/files.md#IndCpaTest) (corresponding to the [ind_cpa_test_schema.json](https://github.com/google/wycheproof/blob/master/doc/types.md#indcpatestgroup) test group) test vectors are released in the future, it is only necessary to update the file `tables.pike` with an addition to the array `test_vectors` of the new vector's filename (and possibly to the mapping `algo_functions` if a different algorithm is used).
 
-Commit `5c180c4e54f94ace678d7a6feb4a033958e83d00` is an excellent example of just how easy it is to add new test vectors which are automatically cycled through via the main script.
+Commit [5c180c4e54f94ace678d7a6feb4a033958e83d00](/commit/5c180c4e54f94ace678d7a6feb4a033958e83d00) is an excellent example of just how easy it is to add new test vectors which are automatically cycled through via the main script.
+
+A blog post detailing more of the development process of this project can be found [here](https://joshua.hu/pikeproof-wycheproof-pike-checks).
 
 ## Usage
 
@@ -49,7 +51,7 @@ A list of issues found by this program are listed below.
 ### Crypto.RSA
 1. Decryption With Degrees Of Malleability [Pike](https://git.lysator.liu.se/pikelang/pike/-/issues/10080)
 
-## Ideas
+## Ideas (some have been utilised)
 1. In various cases, different forms/types of data are provided with respect to keys. For example, public/private keys may be provided in both pem and DER formatting. One test could ensure these keys are parsed to be the same.
 2. Properly implement ECDH tests.
 3. Test using Pike 8.1, which should allow tests involving Crypto.SHA512_256, Crypto.SHA512_224, Crypto.ECC.SECP_224R1, Crypto.ECC.Curve25519/Crypto.ECC.Curve448(EDDSA) automatically.
