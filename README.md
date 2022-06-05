@@ -57,4 +57,4 @@ A list of issues found by this program are listed below.
 5. Run the tests on hardware which Nettle has assembly optimization -- for example, ARM and SPARC.
 
 ## License
-The Wycheproof project and its testcases are provided under the [apache-2.0 license](/LICENSE-2.0.txt).
+The Wycheproof project and its testcases are provided under the [apache-2.0 license](/LICENSE).
