@@ -83,8 +83,12 @@ bool indcpa_test_roundtrip(mapping test, string algorithm) {
 
 	if(err) {
 		if(test["result"] == "invalid") {
-			if(test["flags"] && test["flags"][0] == "BadPadding" && String.count(lower_case(err[0]), "padding") > 0) {
-					DBG("BAD PADDING");
+			if(checkFlags(err[0], "padding", test["flags"], "BadPadding")) {
+				DBG("BAD PADDING");
+				return true;
+			}
+			if(checkFlags(err[0], "invalid padding", test["flags"], "NoPadding")) {
+				DBG("BAD PADDING");
 				return true;
 			}
 		}
@@ -98,9 +102,11 @@ bool indcpa_test_roundtrip(mapping test, string algorithm) {
 	}
 
 	if(test["result"] == "invalid") {
-		if(test["flags"] && test["flags"][0] == "BadPadding") {
-			DBG("Skipping test tcId %d since BadPadding is not reasonable to test here.", test["tcId"]);
-			return true;
+		if(test["flags"]) {
+			if(checkFlags("", "", test["flags"], "BadPadding")) {
+				DBG("Skipping test tcId %d since BadPadding is not reasonable to test here.", test["tcId"]);
+				return true;
+			}
 		}
 		log_err(DBG_ERROR, false, "Test tcId %d should have failed for some reason or another, but it didn't.", test["tcId"]);
 		return false;

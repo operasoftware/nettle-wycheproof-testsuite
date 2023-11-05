@@ -112,7 +112,7 @@ bool dsa_check_key(mapping test, string algorithm) {
 int dsa_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);
 
-	mapping key = testGroup["key"]; //unencoded DSA pubkey
+	mapping key = testGroup["publicKey"]; //unencoded DSA pubkey
 	string keyDer = testGroup["keyDer"];
 	string keyPem = testGroup["keyPem"];
 	string sha = testGroup["sha"];

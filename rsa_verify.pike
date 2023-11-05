@@ -71,7 +71,7 @@ bool rsa_verify_test(mapping test, string algorithm) {
 int rsa_verify_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);
 
-	string keyAsn = String.hex2string(testGroup["keyAsn"]);
+	string keyAsn = String.hex2string(testGroup["publicKeyAsn"]);
 	string sha = testGroup["sha"];
 
 	int fail_count = 0;

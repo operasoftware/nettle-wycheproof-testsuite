@@ -43,8 +43,7 @@ bool eddsa_test(mapping test, string algorithm) {
 			break;
 #endif
 		default:
-//			log_err(DBG_ERROR, false, "Unknown curve in tcId %d: %s.", test["tcId"], test["curve"]);
-			//quietly fail if Pike8
+			log_err(DBG_ERROR, false, "Unknown curve in tcId %d: %s.", test["tcId"], test["curve"]);
 			return false;
 	}
 
@@ -89,7 +88,7 @@ bool eddsa_test(mapping test, string algorithm) {
 int eddsa_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);
 
-	mapping key = testGroup["key"]; //unencoded EC Pubkey
+	mapping key = testGroup["publicKey"];
 	string sha = testGroup["sha"];
 	string curve = key["curve"];
 

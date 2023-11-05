@@ -47,8 +47,17 @@ bool ecdsa_test(mapping test, string algorithm) {
 			curve = curve.SECP_224R1;
 			break;
 #endif
+		case "secp192r1":
+#if constant(Crypto.ECC.SECP_192R1)
+			curve = Crypto.ECC.SECP_192R1;
+			break;
+#endif
+		case "secp160k1":
 		case "secp256k1":
 		case "secp224k1":
+		case "secp192k1":
+		case "secp160r1":
+		case "secp160r2":
 		case "brainpoolP224r1":
 		case "brainpoolP224t1":
 		case "brainpoolP256r1":
@@ -64,6 +73,11 @@ bool ecdsa_test(mapping test, string algorithm) {
 		default:
 			log_err(DBG_ERROR, false, "Unknown curve in tcId %d: %s.", test["tcId"], test["curve"]);
 			return false;
+	}
+
+	if(test["sha"] == "SHAKE128") {
+		DBG("Skipping test tcId %d due to un-supported SHA-1 function %s.", test["tcId"], test["sha"]);
+		return true;
 	}
 
 	mixed ECDSA = curve->ECDSA();
@@ -114,7 +128,7 @@ bool ecdsa_test(mapping test, string algorithm) {
 int ecdsa_tests(mapping testGroup, string algorithm) {
 	int numTests = sizeof(testGroup["tests"]);
 
-	mapping key = testGroup["key"]; //unencoded EC Pubkey
+	mapping key = testGroup["publicKey"]; //unencoded EC Pubkey
 	string sha = testGroup["sha"];
 	string curve = key["curve"];
 

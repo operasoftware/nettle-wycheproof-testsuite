@@ -30,6 +30,7 @@
 
 bool j_car = false; //horrible hack to use carriages for logging
 bool dbg_mode = false;
+bool no_col = false;
 string force_test;
 
 /*
@@ -113,12 +114,29 @@ mixed get_sha_function(string sha_string) {
 			sha = Crypto.SHA512_224;
 			break;
 #endif
+		case "SHAKE256":
+			sha = Crypto.SHAKE_256;
+			break;
 		default:
-//			log_err(DBG_ERROR, false, "Unknown SHA function (%s)!", sha_string); // should be handled by the caller
 			break;
 	}
 
 	return sha;
+}
+
+/*
+ * Check whether the error for a crypt() or decrypt() is known and
+ * expected.
+ * 'err' is the error string (err[0]), 'needle' is a part of the error,
+ * 'flags' is test["flags"], and 'flag' is the flag we're looking for.
+ */
+int checkFlags(string err, string needle, array flags, string flag) {
+	for (int i = 0; i < sizeof(flags); i++) {
+		if (String.count(lower_case(err), lower_case(needle)) > 0 && String.count(lower_case(flags[i]), lower_case(flag)) > 0) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /*
@@ -130,10 +148,14 @@ void log_err(int type, bool carriage, string fmt, mixed ... args) {
 	if(!carriage && j_car)
 		write("\n");
 
-	if(type != DBG_DBG || (type == DBG_DBG && dbg_mode))
-		write(colors[type]+fmt, @args);
-
-	write("\x1B[0m");
+	if(type != DBG_DBG || (type == DBG_DBG && dbg_mode)) {
+		if(no_col) {
+			write(fmt, @args);
+		} else {
+			write(colors[type]+fmt, @args);
+			write("\x1B[0m");
+		}
+	}
 
 	if(carriage) {
 		if(!dbg_mode) {

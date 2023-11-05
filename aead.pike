@@ -94,14 +94,23 @@ bool aead_test_roundtrip(mapping test, string algorithm) {
 			return false;
 		}
 
-		if(String.count(lower_case(err[0]), "invalid iv/nonce") > 0 && String.count(lower_case(test["comment"]), "invalid nonce") > 0) {
-			DBG("INVALID NONCE");
-			//"Expected" invalid response.
+		if(checkFlags(err[0], "nonce length", test["flags"], "InvalidNonceSize")) {
+			DBG("INVALID NONCE SIZE");
 			return true;
 		}
 
-		if(String.count(lower_case(err[0]), "short nonce") > 0 && String.count(lower_case(test["comment"]), "invalid nonce size") > 0) {
-			DBG("SHORT NONCE");
+		if(checkFlags(err[0], "Invalid iv/nonce.", test["flags"], "InvalidNonceSize")) {
+			DBG("INVALID NONCE SIZE");
+			return true;
+		}
+
+		if(checkFlags(err[0], "Bad argument 1 to digest(). Expected int(4..16)", test["flags"], "InvalidTagSize")) {
+			DBG("INVALID TAG SIZE");
+			return true;
+		}
+
+		if(checkFlags(err[0], "Bad argument 1 to digest(). Expected int(4..16)", test["flags"], "InsecureTagSize")) {
+			DBG("INVALID TAG SIZE");
 			return true;
 		}
 
@@ -117,9 +126,23 @@ bool aead_test_roundtrip(mapping test, string algorithm) {
 			return false;
 		}
 
-		if(String.count(lower_case(err[0]), "invalid iv/nonce") > 0 && String.count(lower_case(test["comment"]), "invalid nonce") > 0) {
-			DBG("INVALID NONCE");
-			//"Expected" invalid response.
+		if(checkFlags(err[0], "nonce length", test["flags"], "InvalidNonceSize")) {
+			DBG("INVALID NONCE SIZE");
+			return true;
+		}
+
+		if(checkFlags(err[0], "Invalid iv/nonce.", test["flags"], "InvalidNonceSize")) {
+			DBG("INVALID NONCE SIZE");
+			return true;
+		}
+
+		if(checkFlags(err[0], "Bad argument 1 to digest(). Expected int(4..16)", test["flags"], "InvalidTagSize")) {
+			DBG("INVALID TAG SIZE");
+			return true;
+		}
+
+		if(checkFlags(err[0], "Bad argument 1 to digest(). Expected int(4..16)", test["flags"], "InsecureTagSize")) {
+			DBG("INVALID TAG SIZE");
 			return true;
 		}
 
@@ -147,10 +170,6 @@ bool aead_test_roundtrip(mapping test, string algorithm) {
 	}
 
 	if(ret_dec["digest"] != test["tag"]) {
-		if(test["result"] == "invalid" && (String.count(lower_case(test["comment"]), lower_case(String.string2hex(ret_dec["digest"]))) > 0 || String.count(lower_case(test["comment"]), "tag") > 0)) {
-			DBG("INVALID TAG");
-			return true;
-		}
 		if(test["result"] == "invalid") { //XXX: Is this correct with acceptable?
 			DBG("???????");
 			return true;

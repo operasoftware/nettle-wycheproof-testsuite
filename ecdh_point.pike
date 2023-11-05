@@ -48,8 +48,14 @@ bool ecdh_point_test(mapping test, string algorithm) {
 			curve = curve.SECP_224R1;
 			break;
 #endif
+		case "secp192r1":
+#if constant(Crypto.ECC.SECP_192R1)
+			curve = Crypto.ECC.SECP_192R1;
+			break;
+#endif
 		case "secp256k1":
 		case "secp224k1":
+		case "secp192k1":
 		case "brainpoolP224r1":
 		case "brainpoolP224t1":
 		case "brainpoolP256r1":

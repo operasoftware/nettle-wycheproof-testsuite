@@ -57,7 +57,8 @@ array prepare_json_cases() {
 	for (int i=0; i<sizeof (test_vectors); i++) {
 		object file = Stdio.File();
 		if(!file->open("testvectors/"+test_vectors[i],"r")) {
-			ERR_CONT(DBG_ERROR,false,"Missing file: %s. Skipping.",test_vectors[i]);
+			log_err(DBG_ERROR,false,"Missing file: %s. Skipping.",test_vectors[i]);
+			continue;
 		}
 
 		string json_data = file->read();
@@ -67,21 +68,24 @@ array prepare_json_cases() {
 		};
 
 		if(err) {
-			ERR_CONT(DBG_ERROR,false,"Invalid JSON loaded from %s: %s. Skipping.", test_vectors[i], describe_error(err)-"\n");
+			log_err(DBG_ERROR,false,"Invalid JSON loaded from %s: %s. Skipping.", test_vectors[i], describe_error(err)-"\n");
+			continue;
 		}
 
 		if(!lookup_init((string)json_vector["algorithm"])) {
-			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to the lack of support in Pike/Nettle of the algorithm %s.", test_vectors[i], (string)json_vector["algorithm"]);
+			DBG("Loaded JSON from %s, but skipping due to the lack of support in Pike/Nettle of the algorithm %s.", test_vectors[i], (string)json_vector["algorithm"]);
+			continue;
 		}
 
 		if(force_test && force_test != (string)json_vector["algorithm"]) {
-			ERR_CONT(DBG_INFO, false, "Loaded JSON from %s, but skipping due to force-ful mode.", test_vectors[i]);
+			DBG("Loaded JSON from %s, but skipping due to force-ful mode.", test_vectors[i]);
+			continue;
 		}
 
 		maps[cases] = json_vector;
 		maps[cases++]["file"] = (["name": test_vectors[i]]);
 		totaltests += (int)json_vector["numberOfTests"];
-		ERR_CONT(DBG_INFO,false,"Loaded JSON from %s.", test_vectors[i]);
+		log_err(DBG_INFO,false,"Loaded JSON from %s.", test_vectors[i]);
 	}
 
 	log_err(DBG_INFO, false,"%d test vectors loaded, totalling %d tests.", cases, totaltests);
@@ -94,10 +98,13 @@ array prepare_json_cases() {
  */
 int main(int argc, array(string) argv) {
 	for(int j=1; j<argc; j++) {
-		if(argv[j] == "D")
+		if(argv[j] == "D") {
 			dbg_mode = true;
-		else
+		} else if(argv[j] == "NO_COL") {
+			no_col = true;
+		} else {
 			force_test = argv[j];
+		}
 	}
 	array maps = prepare_json_cases();
 

@@ -22,8 +22,14 @@ pike main.pike
 # Runs all the tests with verbose debugging information.
 pike main.pike D
 
+# Runs all the tests without color output.
+main.pike NO_COL
+
 # Runs tests for a specific algorithm (NOT 'type').
-pike main.pike RSAES-PKCS1-v1_5-DEC
+main.pike RSAES-PKCS1-v1_5
+
+# Runs tests for a specific algorithm, providing debugging information without color output.
+main.pike NO_COL RSAES-PKCS1-v1_5 D
 ```
 
 ## Results
@@ -54,9 +60,8 @@ A list of issues found by this program are listed below.
 ## Ideas (some have been utilised)
 1. In various cases, different forms/types of data are provided with respect to keys. For example, public/private keys may be provided in both pem and DER formatting. One test could ensure these keys are parsed to be the same.
 2. Properly implement ECDH tests.
-3. Test using Pike 8.1, which should allow tests involving Crypto.SHA512_256, Crypto.SHA512_224, Crypto.ECC.SECP_224R1, Crypto.ECC.Curve25519/Crypto.ECC.Curve448(EDDSA) automatically.
-4. Implement Pike 8.1 tests (where possible) for AEAD-AES-SIV-CMAC, AES-CMAC, AEGIS128L, AEGIS128, AEGIS256, AES-GCM-SIV, XCHACHA20-POLY1305, RSASSA-PSS, RSAES-OAEP, AES-GMAC, VMAC-AES, HKDF-SHA-1, HKDF-SHA-256, HKDF-SHA-384, HKDF-SHA-512, KW, KWP, XDH
-5. Run the tests on hardware which Nettle has assembly optimization -- for example, ARM and SPARC.
+3. Implement tests for RSASSA-PSS, RSAES-OAEP, KW
+4. Run the tests on hardware which Nettle has assembly optimization -- for example, ARM and SPARC.
 
 ## License
 The Wycheproof project and its testcases are provided under the [apache-2.0 license](/LICENSE).
